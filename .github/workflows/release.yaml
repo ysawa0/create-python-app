@@ -18,8 +18,8 @@ jobs:
     strategy:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
-        # os: [ubuntu-latest, macos-latest] # Build for multiple OSes
-        os: [macos-latest] # Build for multiple OSes
+        os: [ubuntu-latest, macos-latest] # Build for multiple OSes
+        # os: [macos-latest] # Build for multiple OSes
     steps:
       - uses: actions/checkout@v4
 
@@ -32,6 +32,7 @@ jobs:
       - name: Archive Release Binary (MacOS, Linux)
         if: runner.os != 'windows-latest'
         run: zip -j cpa-${{ runner.os }}.zip ./target/release/cpa
+
         # run: tar czvf cpa-${{ runner.os }}.tar.gz -C ./target/release cpa
       # - name: Archive Release Binary (Windows)
       #   if: runner.os == 'windows-latest'
@@ -40,8 +41,8 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # run: gh release create ${{ github.ref_name }} "./target/release/cpa" --generate-notes --title "Version ${{ github.ref_name }}"
         run: gh release create ${{ github.ref_name }} "cpa-${{ runner.os }}.zip" --generate-notes --title "Version ${{ github.ref_name }}"
+        # run: gh release create ${{ github.ref_name }} "./target/release/cpa" --generate-notes --title "Version ${{ github.ref_name }}"
 
         # run: >-
         #   echo ${{ github.ref_name }}
