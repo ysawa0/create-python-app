@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Release
+        run: cargo build --release
+
+      - name: Archive Release Binary
+        run: tar czvf ${{ runner.os }}-cpa.tar.gz -C ./target/release cpa
+        if: runner.os != 'windows-latest'
+
+      - name: Archive Release Binary (Windows)
+        if: runner.os == 'windows-latest'
+        run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath windows-cpa.zip
+        shell: pwsh
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ runner.os }}-cpa.tar.gz
+          asset_name: cpa-${{ runner.os }}.tar.gz
+          asset_content_type: application/gzip
+        if: runner.os != 'windows-latest'
+
+      - name: Upload Release Asset (Windows)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./windows-cpa.zip
+          asset_name: cpa-${{ runner.os }}.zip
+          asset_content_type: application/zip
+        if: runner.os == 'windows-latest'
