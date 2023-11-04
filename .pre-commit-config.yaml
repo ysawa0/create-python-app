@@ -116,9 +116,9 @@ repos:
           - markdown
         exclude: templates/.pre-commit-config.yaml
 
-  ##
+  #############################################################################
   # Rust
-  ##
+  #############################################################################
   - repo: https://github.com/doublify/pre-commit-rust
     rev: v1.0
     hooks:

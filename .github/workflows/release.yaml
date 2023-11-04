@@ -18,7 +18,7 @@ jobs:
         # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
         os: [ubuntu-latest, macos-latest] # Build for multiple OSes
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -26,9 +26,9 @@ jobs:
       - name: Build Release
         run: cargo build --release
 
-      - name: Archive Release Binary (MacOS, Linux)
-        if: runner.os != 'windows-latest'
-        run: tar czvf ${{ runner.os }}-cpa.tar.gz -C ./target/release cpa
+      # - name: Archive Release Binary (MacOS, Linux)
+      #   if: runner.os != 'windows-latest'
+      #   run: tar czvf ${{ runner.os }}-cpa.tar.gz -C ./target/release cpa
 
       # - name: Archive Release Binary (Windows)
       #   if: runner.os == 'windows-latest'
@@ -37,10 +37,11 @@ jobs:
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ${{ runner.os }}-cpa.tar.gz
+            ./target/release/cpa
+            # ${{ runner.os }}-cpa.tar.gz
             # windows-cpa.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
