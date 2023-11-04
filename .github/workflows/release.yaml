@@ -31,7 +31,7 @@ jobs:
         # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
         os: [ubuntu-latest, macos-latest] # Build for multiple OSes
         # os: [macos-latest] # Build for multiple OSes
-    # runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
