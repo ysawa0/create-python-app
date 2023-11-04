@@ -13,8 +13,7 @@ struct PreCommitConfig {
 }
 #[derive(Template)]
 #[template(path = ".gitignore", escape = "none")]
-struct GitIgnore {
-}
+struct GitIgnore {}
 
 #[derive(Template)]
 #[template(path = "pyproject.toml", escape = "none")]
@@ -27,7 +26,6 @@ struct PyProject {
 #[derive(Template)]
 #[template(path = ".cpa/flake8.cfg", escape = "none")]
 struct Flake8 {}
-
 
 #[derive(Template)]
 #[template(path = ".cpa/prettier.json", escape = "none")]
