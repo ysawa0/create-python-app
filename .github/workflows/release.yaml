@@ -35,15 +35,24 @@ jobs:
       #   if: runner.os == 'windows-latest'
       #   run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath windows-cpa.zip
       #   shell: pwsh
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        # if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            ./target/release/cpa
+      - name: Release
         env:
-          GITHUB_TOKEN:
-            ${{ secrets.GITHUB_TOKEN }}
-            # ${{ runner.os }}-cpa.tar.gz
-            # windows-cpa.zip
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          echo ${{ github.ref_name }}
+          gh release create ${{ github.ref_name }}
+          "./target/release/cpa"
+          --generate-notes
+          --title "Version ${{ github.ref_name }}"
+
+      # - name: Create Release
+      #   uses: softprops/action-gh-release@v1
+      #   # if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     files: |
+      #       ./target/release/cpa
+      #   env:
+      #     GITHUB_TOKEN:
+      #       ${{ secrets.GITHUB_TOKEN }}
+      #       # ${{ runner.os }}-cpa.tar.gz
+      #       # windows-cpa.zip
