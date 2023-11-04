@@ -36,19 +36,19 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Print Runner OS
+        run: echo "Runner OS is ${{ runner.os }}"
+
       - name: Build Release
         run: cargo build --release
 
-      - name: Print Runner OS
-        run: echo "The runner OS is ${{ runner.os }}"
-
       - name: Archive Release Binary (Windows)
-        if: runner.os == 'windows-latest'
+        if: runner.os == 'Windows'
         run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath cpa-Windows.zip
         shell: pwsh
 
       - name: Archive Release Binary (MacOS, Linux)
-        if: runner.os != 'windows-latest'
+        if: runner.os != 'Windows'
         run: zip -j cpa-${{ runner.os }}.zip ./target/release/cpa
 
       - name: Release
