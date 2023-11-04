@@ -26,13 +26,12 @@ jobs:
     name: Build and Release
     permissions:
       contents: write
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
         os: [ubuntu-latest, macos-latest] # Build for multiple OSes
         # os: [macos-latest] # Build for multiple OSes
+    # runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
