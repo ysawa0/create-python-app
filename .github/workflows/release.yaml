@@ -12,7 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
+        # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
+        os: [ubuntu-latest, macos-latest] # Build for multiple OSes
     steps:
       - uses: actions/checkout@v2
 
@@ -22,14 +23,14 @@ jobs:
       - name: Build Release
         run: cargo build --release
 
-      - name: Archive Release Binary
-        run: tar czvf ${{ runner.os }}-cpa.tar.gz -C ./target/release cpa
+      - name: Archive Release Binary (MacOS, Linux)
         if: runner.os != 'windows-latest'
+        run: tar czvf ${{ runner.os }}-cpa.tar.gz -C ./target/release cpa
 
-      - name: Archive Release Binary (Windows)
-        if: runner.os == 'windows-latest'
-        run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath windows-cpa.zip
-        shell: pwsh
+      # - name: Archive Release Binary (Windows)
+      #   if: runner.os == 'windows-latest'
+      #   run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath windows-cpa.zip
+      #   shell: pwsh
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -37,6 +38,6 @@ jobs:
         with:
           files: |
             ${{ runner.os }}-cpa.tar.gz
-            windows-cpa.zip
+            # windows-cpa.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
