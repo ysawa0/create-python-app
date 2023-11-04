@@ -28,9 +28,8 @@ jobs:
       contents: write
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-latest, windows-latest] # Build for multiple OSes
-        os: [ubuntu-latest, macos-latest] # Build for multiple OSes
-        # os: [macos-latest] # Build for multiple OSes
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # os: [ubuntu-latest, macos-latest] # Build for multiple OSes
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +43,10 @@ jobs:
       - name: Archive Release Binary (MacOS, Linux)
         if: runner.os != 'windows-latest'
         run: zip -j cpa-${{ runner.os }}.zip ./target/release/cpa
+
+      - name: Archive Release Binary (Windows)
+        if: runner.os == 'windows-latest'
+        run: zip -j cpa-${{ runner.os }}.zip ./target/release/cpa.exe
 
       - name: Release
         env:
