@@ -49,7 +49,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
         preset = "python3.10".to_string();
     }
     let mut prefix: String = "./".to_string();
-    if !create {
+    if create {
         prefix = format!("./{}", name)
     }
 
