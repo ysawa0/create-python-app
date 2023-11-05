@@ -39,7 +39,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: ${{ runner.os }}-pc-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pc-
 
       - name: Install dependencies
         run: |
