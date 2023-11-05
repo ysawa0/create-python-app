@@ -28,6 +28,14 @@ jobs:
           python -m pip install pre-commit
           pre-commit install
 
+      - name: Install shfmt
+        run: |
+          SHFMT_VERSION="v3.7.0"
+          SHFMT_BIN="shfmt_${SHFMT_VERSION}_linux_amd64"
+          wget -O shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
+          chmod +x shfmt
+          sudo mv shfmt /usr/local/bin/
+
       - name: Run pre-commits
         run: |
           pre-commit run --all-files
