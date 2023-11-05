@@ -12,7 +12,7 @@ An example output is provided in [./example](https://github.com/ysawa0/create-py
 
 ### MacOS, Linux
 
-Download latest binary and install via script below or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
+Install via script below or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/install.sh | bash
