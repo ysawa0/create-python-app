@@ -87,7 +87,7 @@ pub fn derive_preset(mut preset: String, name: String) {
     };
     let out_pyproj: String = pyproj.render().expect("Failed to render");
     let mut f_pyproj =
-        File::create(format!("./{}/pypropoject.toml", name)).expect("Could not create file");
+        File::create(format!("./{}/pyproject.toml", name)).expect("Could not create file");
     f_pyproj
         .write_all(out_pyproj.as_bytes())
         .expect("Could not write to file");

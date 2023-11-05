@@ -16,13 +16,19 @@
 
 ## Installation
 
-Download binary from Github
+### MacOS, Linux
 
-```bash
+Download latest binary and install via provided `install.sh` script
 
 ```
+sh install.sh
+```
 
-Building from source
+### Windows
+
+Download latest binary from Release page
+
+### Building from source
 
 ```bash
 # cd to project
