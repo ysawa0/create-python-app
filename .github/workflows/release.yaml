@@ -44,7 +44,7 @@ jobs:
         with:
           path: |
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
 
       - name: Build Release
         run: cargo build --release
