@@ -21,6 +21,7 @@ curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/instal
 ```bash
 # cpa will be installed to ~/bin/cpa
 # add ~/bin to your PATH
+# eg: echo "export PATH=$PATH:~/bin" >> ~/.zshrc
 ```
 
 ### Windows
