@@ -40,17 +40,17 @@ cargo install --path .
 To create a new project:
 
 ```bash
-cpa create --name <project_name>
+cpa create --name myproject
 ```
 
 Optional params:
 
-- `--preset`: Specifies a Python version for the project. Defaults to "python" which is mapped internally to "python3.10".
+- `--preset`: Specifies a Python version for the project. Defaults to "python3.10"
 
 Example:
 
 ```bash
-cpa create --name my_project --preset python3.10
+cpa create --name myproject --preset python3.10
 ```
 
 ## Contributions and Feedback
