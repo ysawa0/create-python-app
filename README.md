@@ -14,6 +14,8 @@ Download latest binary and install via provided `install.sh` script or get it fr
 
 ```
 sh install.sh
+# cpa will be installed to ~/bin/cpa
+# add ~/bin to your PATH
 ```
 
 ### Windows

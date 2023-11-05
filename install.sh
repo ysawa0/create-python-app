@@ -57,10 +57,10 @@ chmod +x "$BINARY_PATH" || {
 # Remove the downloaded zip
 rm "$ZIP_PATH"
 
-# Optionally, append the target directory to PATH if it's not already there
-if [[ ":$PATH:" != *":$TARGET_DIR:"* ]]; then
-	echo "export PATH=\$PATH:$TARGET_DIR" >>~/.bashrc
-	echo "$TARGET_DIR added to PATH"
-fi
+# # Optionally, append the target directory to PATH if it's not already there
+# if [[ ":$PATH:" != *":$TARGET_DIR:"* ]]; then
+# 	echo "export PATH=\$PATH:$TARGET_DIR" >>~/.bashrc
+# 	echo "$TARGET_DIR added to PATH"
+# fi
 
 echo "cpa installed to $BINARY_PATH"
