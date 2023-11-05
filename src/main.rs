@@ -4,7 +4,7 @@ use clap::Parser;
 use python::derive_preset;
 
 #[derive(Parser)]
-#[command(name = "cpa")]
+#[command(name = "cpa", version)]
 enum Cli {
     Create(CreateArgs),
     Update(UpdateArgs),
