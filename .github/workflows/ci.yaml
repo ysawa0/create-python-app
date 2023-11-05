@@ -38,8 +38,8 @@ jobs:
 
       - name: Run pre-commits
         run: |
-          pre-commit run --all-files
+          # pre-commit run --all-files
+          pre-commit run --from-ref ${{ env.BASE_COMMIT_ID }} --to-ref $(git log --pretty=tformat:"%H" -n1 .)
         #   pre-commit run --from-ref origin/main --to-ref HEAD
         # run: |
         #   BASE_COMMIT_ID=$(git rev-parse origin/main)
-        #   pre-commit run --from-ref ${{ env.BASE_COMMIT_ID }} --to-ref HEAD
