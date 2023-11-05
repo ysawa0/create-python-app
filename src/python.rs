@@ -44,7 +44,7 @@ struct Flake8 {}
 #[template(path = ".cpa/prettier.json", escape = "none")]
 struct Prettier {}
 
-pub fn derive_preset(mut preset: String, name: String) {
+pub fn setup_preset(mut preset: String, name: String) {
     if preset == "python" {
         preset = "python3.10".to_string();
     }
