@@ -2,13 +2,11 @@
 
 ![CPA Logo](cpa.png)
 
-## Overview
-
 `cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and Poetry for dependency management. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing dev time.
 
 An example output is provided in [./example](https://github.com/ysawa0/create-python-app/tree/main/example)
 
-## Installation
+# Installation
 
 ### MacOS, Linux
 
@@ -35,7 +33,7 @@ Download latest binary from [Releases](https://github.com/ysawa0/create-python-a
 cargo install --path .
 ```
 
-## Usage
+# Usage
 
 To create a new project:
 
@@ -53,13 +51,13 @@ Example:
 cpa create --name myproject --preset python3.10
 ```
 
-## Goals
+# Goals
 
 - **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
 - **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
 - **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
 - Golang, Rust support planned
 
-## Contributions and Feedback
+# Contributions and Feedback
 
 Users are welcome to contribute to the project by submitting pull requests or opening issues for bugs and feature requests. Feedback is also greatly appreciated to help improve the tool.
