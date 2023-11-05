@@ -58,7 +58,7 @@ jobs:
             chmod +x shfmt
             sudo mv shfmt /usr/local/bin/
           fi
-          # sudo apt-get install shellcheck
+          sudo apt-get install shellcheck
 
       - name: Run pre-commits
         run: |
