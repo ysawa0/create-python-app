@@ -1,17 +1,14 @@
 name: CI
 
-####################################
-# Start the job on all push and PR #
-####################################
 on:
-  pull_request:
+  pull_request: # Start the job on all PRs
     branches: [master, main]
     types: [synchronize, opened, reopened, ready_for_review]
   # push:
   #   branches: [master, main]
 
 jobs:
-  precommits:
+  precommit:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +24,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          # key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           key: ${{ runner.os }}-pip-
           restore-keys: |
             ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python -m pip install pre-commit
-          pre-commit install
 
       - name: Cache shfmt binary
         uses: actions/cache@v3
@@ -44,13 +35,30 @@ jobs:
           # key: ${{ runner.os }}-shfmt-${{ env.SHFMT_VERSION }}
           key: ${{ runner.os }}-shfmt-
 
+      - name: Cache Pre-Commit environments
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          # key: ${{ runner.os }}-pc-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: ${{ runner.os }}-pc-
+          restore-keys: |
+            ${{ runner.os }}-pc-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install pre-commit
+          pre-commit install
+
       - name: Install shfmt
         run: |
           SHFMT_VERSION="v3.7.0"
           SHFMT_BIN="shfmt_${SHFMT_VERSION}_linux_amd64"
-          wget -O shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
-          chmod +x shfmt
-          sudo mv shfmt /usr/local/bin/
+          if [[ ! -f /usr/local/bin/shfmt ]]; then
+            wget -O shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
+            chmod +x shfmt
+            sudo mv shfmt /usr/local/bin/
+          fi
+          sudo apt-get install shellcheck
 
       - name: Run pre-commits
         run: |
