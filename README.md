@@ -12,10 +12,13 @@ An example output is provided in [./example](https://github.com/ysawa0/create-py
 
 ### MacOS, Linux
 
-Download latest binary and install via provided `install.sh` or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
+Download latest binary and install via script below or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
 ```bash
-sh install.sh
+curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/install.sh | bash
+```
+
+```bash
 # cpa will be installed to ~/bin/cpa
 # add ~/bin to your PATH
 ```
