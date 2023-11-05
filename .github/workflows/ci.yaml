@@ -7,8 +7,8 @@ on:
   pull_request:
     branches: [master, main]
     types: [synchronize, opened, reopened, ready_for_review]
-  # push:
-  #   branches: [master, main]
+  push: # Start the job on all main branch push
+    branches: [master, main]
 
 jobs:
   precommits:
