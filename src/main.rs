@@ -38,7 +38,6 @@ fn main() {
         Cli::Update(args) => {
             println!("Updating project with preset: {:?}", args.preset);
             setup_preset(args.preset, "".to_string(), false);
-            // eprintln!("Update not yet implemented");
         }
     }
 }

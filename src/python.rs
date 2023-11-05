@@ -48,8 +48,6 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     if preset == "python" {
         preset = "python3.10".to_string();
     }
-    // write to ./pyproject.toml OR ./myproj/pyproject.toml
-    // write to ./.cpa/flake8 OR ./myproj/.cpa/flake8
     let mut prefix: String = "./".to_string();
     if !create {
         prefix = format!("./{}", name)

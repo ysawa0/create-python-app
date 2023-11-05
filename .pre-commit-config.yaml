@@ -109,3 +109,13 @@ repos:
           - javascript
           - yaml
           - markdown
+
+  #############################################################################
+  # Rust
+  #############################################################################
+  - repo: https://github.com/doublify/pre-commit-rust
+    rev: v1.0
+    hooks:
+      - id: fmt # Formats Rust code using rustfmt
+      - id: cargo-check # Checks Rust code for compilation errors and warnings
+      - id: clippy # Lints Rust code with clippy for common mistakes and style issues
