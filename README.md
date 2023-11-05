@@ -2,17 +2,14 @@
 
 ## Overview
 
-`cpa` is a cli tool designed to streamline the setup of new Python projects. It automates the creation of Python projects with commonly used configs and boilerplate.
+`cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for code style, lint checks, gitignore, a basic Dockerfile and dependency management configuration. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing setup time.
 
 ## Goals
 
 - **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
 - **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
 - **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
-
-## Features
-
-- Provides pre-commit hook setup with hooks for checking merge conflicts, large files, and code styling.
+- Golang, Rust support planned
 
 ## Installation
 
