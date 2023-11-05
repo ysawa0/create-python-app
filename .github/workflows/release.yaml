@@ -39,6 +39,13 @@ jobs:
       - name: Print Runner OS
         run: echo "Runner OS is ${{ runner.os }}"
 
+      - name: Cache target dir
+        uses: actions/cache@v3
+        with:
+          path: |
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Build Release
         run: cargo build --release
 

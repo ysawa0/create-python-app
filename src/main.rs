@@ -1,10 +1,10 @@
 mod python;
 
 use clap::Parser;
-use python::derive_preset;
+use python::setup_preset;
 
 #[derive(Parser)]
-#[command(name = "cpa")]
+#[command(name = "cpa", version)]
 enum Cli {
     Create(CreateArgs),
     Update(UpdateArgs),
@@ -30,14 +30,14 @@ fn main() {
             println!("Creating project with name: {}", args.name);
             println!("Using preset: {:?} ", args.preset);
             if args.preset.starts_with("python") {
-                derive_preset(args.preset, args.name);
+                setup_preset(args.preset, args.name, true);
             } else {
-                eprintln!("Preset: {:?} not supported currently", args.preset);
+                eprintln!("Preset: {:?} not supported yet", args.preset);
             }
         }
         Cli::Update(args) => {
-            println!("Updating project cwith preset: {:?}", args.preset);
-            eprintln!("Update currently not supported");
+            println!("Updating project with preset: {:?}", args.preset);
+            setup_preset(args.preset, "".to_string(), false);
         }
     }
 }

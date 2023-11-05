@@ -8,17 +8,16 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      - id: check-ast # Validates the syntax of Python files.
-      - id: check-case-conflict # Identifies potential case-insensitive file name conflicts.
       - id: check-merge-conflict # Searches for merge conflict markers within files.
-      - id: check-symlinks # Detects broken symlinks.
       - id: check-added-large-files # Blocks commits that add large files. Default limit is 500kB.
-        args: ["--maxkb=1300"]
         # Can be configured with args, e.g., '--maxkb=1000' to change the limit.
-        # Files in 'your_dir/' can be excluded.
         # exclude: 'your_dir/.*'
-      - id: end-of-file-fixer # Ensures files end with a single newline or are empty.
+        # args: ['--maxkb=5000']
+      - id: check-case-conflict # Identifies potential case-insensitive file name conflicts.
+      - id: check-ast # Validates the syntax of Python files.
+      - id: check-symlinks # Detects broken symlinks.
       - id: trailing-whitespace # Removes any trailing whitespace at the end of lines.
+      - id: end-of-file-fixer # Ensures files end with a single newline or are empty.
 
   #############################################################################
   # JSON, TOML
@@ -48,7 +47,7 @@ repos:
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.2.1
     hooks:
-      - id: autoflake # Removes unused imports and unused variables from Python code
+      - id: autoflake # Removes unused imports and unused variables from Python code.
         args:
           - --in-place
           - --remove-all-unused-imports
@@ -56,7 +55,7 @@ repos:
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
-      - id: isort # Sorts Python imports into sections and by alphabetical order
+      - id: isort # Sorts Python imports into sections and by alphabetical order.
         args:
           - --settings-path
           - pyproject.toml
@@ -66,7 +65,7 @@ repos:
   - repo: https://github.com/psf/black
     rev: 23.10.1
     hooks:
-      - id: black # Formats Python code to conform to the Black code style
+      - id: black # Formats Python code to conform to the Black code style.
         args:
           - --config
           - pyproject.toml
@@ -76,25 +75,22 @@ repos:
   - repo: https://github.com/pycqa/flake8
     rev: 6.1.0
     hooks:
-      - id: flake8 # Lints Python code for errors and code style issues based on PEP8
+      - id: flake8 # Lints Python code for errors and code style issues based on PEP8.
         args:
           - --config=.cpa/flake8.cfg
         types:
           - python
 
   #  - repo: https://github.com/astral-sh/ruff-pre-commit
-  #    # Ruff version.
-  #    rev: v0.0.270
+  #    rev: v0.1.4
   #    hooks:
   #      - id: ruff
 
   # - repo: https://github.com/python-poetry/poetry
-  #   rev: '1.4.0'
+  #   rev: '1.7.0'
   #   hooks:
-  #     # https://python-poetry.org/docs/master/pre-commit-hooks/
-  #     # These hooks ensure that our dependencies are being updated only thru poetry.
   #     - id: poetry-check # Makes sure the poetry configuration does not get committed in a broken state.
-  #     # - id: poetry-lock # Makes sure the lock file is up-to-date when committing changes.
+  #     - id: poetry-lock # Ensures the poetry.lock file is up-to-date with the pyproject.toml changes.
 
   #############################################################################
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
@@ -102,16 +98,15 @@ repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.3
     hooks:
-      - id: prettier
+      - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier
-        entry: prettier
         args: [--config, .cpa/prettier.json, --write]
         types_or:
-          - javascript
+          - css
+          - scss
           - ts
           - tsx
-          - scss
-          - css
+          - javascript
           - yaml
           - markdown
         exclude: templates/.pre-commit-config.yaml
