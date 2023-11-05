@@ -4,15 +4,15 @@
 
 ## Overview
 
-`cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and dependency management configuration. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing setup time.
+`cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and Poetry for dependency management. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing dev time.
 
 ## Installation
 
 ### MacOS, Linux
 
-Download latest binary and install via provided `install.sh` script or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
+Download latest binary and install via provided `install.sh` or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
-```
+```bash
 sh install.sh
 # cpa will be installed to ~/bin/cpa
 # add ~/bin to your PATH
