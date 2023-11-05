@@ -34,6 +34,8 @@ jobs:
           path: /usr/local/bin/shfmt
           # key: ${{ runner.os }}-shfmt-${{ env.SHFMT_VERSION }}
           key: ${{ runner.os }}-shfmt-
+          restore-keys: |
+            ${{ runner.os }}-shfmt-
 
       - name: Cache Pre-Commit environments
         uses: actions/cache@v3

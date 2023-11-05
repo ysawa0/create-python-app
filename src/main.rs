@@ -4,9 +4,22 @@ use clap::Parser;
 use python::setup_preset;
 
 #[derive(Parser)]
-#[command(name = "cpa", version)]
+#[clap(
+    name = "cpa",
+    version,
+    about = "CPA helps you set up new projects, ultra fast",
+    long_about = "CPA is a cli tool designed to expedite the setup of new projects by automating the creation of various configuration files."
+)]
 enum Cli {
+    #[clap(
+        about = "Create a new project",
+        long_about = "Create a new project using specified preset."
+    )]
     Create(CreateArgs),
+    #[clap(
+        about = "Update existing project",
+        long_about = "Overwrite existing current working dir with CPA preset."
+    )]
     Update(UpdateArgs),
 }
 
@@ -32,7 +45,7 @@ fn main() {
             if args.preset.starts_with("python") {
                 setup_preset(args.preset, args.name, true);
             } else {
-                eprintln!("Preset: {:?} not supported yet", args.preset);
+                eprintln!("Preset: {:?} not supported", args.preset);
             }
         }
         Cli::Update(args) => {
