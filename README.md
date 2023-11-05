@@ -1,5 +1,7 @@
 # CPA: Create-Python-App
 
+![CPA Logo](cpa.png)
+
 ## Overview
 
 `cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and dependency management configuration. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing setup time.

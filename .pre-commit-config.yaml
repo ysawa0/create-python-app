@@ -13,10 +13,10 @@ repos:
       - id: check-merge-conflict # Searches for merge conflict markers within files.
       - id: check-symlinks # Detects broken symlinks.
       - id: check-added-large-files # Blocks commits that add large files. Default limit is 500kB.
+        args: ["--maxkb=1300"]
         # Can be configured with args, e.g., '--maxkb=1000' to change the limit.
         # Files in 'your_dir/' can be excluded.
         # exclude: 'your_dir/.*'
-        # args: ['--maxkb=5000']
       - id: end-of-file-fixer # Ensures files end with a single newline or are empty.
       - id: trailing-whitespace # Removes any trailing whitespace at the end of lines.
 
