@@ -36,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-shfmt-
 
       - name: Cache Pre-Commit environments
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
           key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
