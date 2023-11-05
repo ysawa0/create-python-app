@@ -152,4 +152,5 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     f_pyproj
         .write_all(out_pyproj.as_bytes())
         .expect("Could not write to file");
+    println!("Project created at: {}", prefix)
 }
