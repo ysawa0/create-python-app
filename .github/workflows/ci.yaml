@@ -59,9 +59,3 @@ jobs:
           echo ${{ env.BASE_COMMIT_ID }}
           git fetch
           pre-commit run --from-ref origin/main --to-ref $CUR_SHA
-
-        # pre-commit run --from-ref ${{ env.BASE_COMMIT_ID }} --to-ref $CUR_SHA
-        # pre-commit run --all-files
-        #   pre-commit run --from-ref origin/main --to-ref HEAD
-        # run: |
-        #   BASE_COMMIT_ID=$(git rev-parse origin/main)

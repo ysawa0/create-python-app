@@ -44,14 +44,20 @@ struct Flake8 {}
 #[template(path = ".cpa/prettier.json", escape = "none")]
 struct Prettier {}
 
-pub fn setup_preset(mut preset: String, name: String) {
+pub fn setup_preset(mut preset: String, name: String, create: bool) {
     if preset == "python" {
         preset = "python3.10".to_string();
     }
+    // write to ./pyproject.toml OR ./myproj/pyproject.toml
+    // write to ./.cpa/flake8 OR ./myproj/.cpa/flake8
+    let mut prefix: String = "./".to_string();
+    if !create {
+        prefix = format!("./{}", name)
+    }
 
-    let _ = fs::create_dir_all(format!("./{}/.cpa", name));
+    let _ = fs::create_dir_all(format!("{}/.cpa", prefix));
     // Render .gitignore
-    File::create(format!("./{}/.gitignore", name))
+    File::create(format!("{}/.gitignore", prefix))
         .and_then(|mut file| {
             file.write_all(
                 GitIgnore {}
@@ -63,7 +69,7 @@ pub fn setup_preset(mut preset: String, name: String) {
         .expect("Failed to create or write to .gitignore");
 
     // Render Makefile
-    File::create(format!("./{}/Makefile", name))
+    File::create(format!("{}/Makefile", prefix))
         .and_then(|mut file| {
             file.write_all(
                 Makefile {}
@@ -75,7 +81,7 @@ pub fn setup_preset(mut preset: String, name: String) {
         .expect("Failed to create or write to Makefile");
 
     // Render Dockerfile
-    File::create(format!("./{}/Dockerfile", name))
+    File::create(format!("{}/Dockerfile", prefix))
         .and_then(|mut file| {
             file.write_all(
                 Dockerfile {}
@@ -87,12 +93,12 @@ pub fn setup_preset(mut preset: String, name: String) {
         .expect("Failed to create or write to Dockerfile");
 
     // Render main.py
-    File::create(format!("./{}/main.py", name))
+    File::create(format!("{}/main.py", prefix))
         .and_then(|mut file| file.write_all(MainPy {}.render().expect("Render fail").as_bytes()))
         .expect("Failed to render or write to main.py");
 
     // Render pre-commit conf
-    File::create(format!("./{}/.pre-commit-config.yaml", name))
+    File::create(format!("{}/.pre-commit-config.yaml", prefix))
         .and_then(|mut file| {
             file.write_all(
                 PreCommitConfig { python: true }
@@ -104,7 +110,7 @@ pub fn setup_preset(mut preset: String, name: String) {
         .expect("Failed to create or write to .pre-commit-config.yaml");
 
     // Render Flake8 conf
-    File::create(format!("./{}/.cpa/flake8.cfg", name))
+    File::create(format!("{}/.cpa/flake8.cfg", prefix))
         .and_then(|mut file| {
             file.write_all(
                 Flake8 {}
@@ -116,7 +122,7 @@ pub fn setup_preset(mut preset: String, name: String) {
         .expect("Failed to create or write to flake8.cfg");
 
     // Render Prettier conf
-    File::create(format!("./{}/.cpa/prettier.json", name))
+    File::create(format!("{}/.cpa/prettier.json", prefix))
         .and_then(|mut file| {
             file.write_all(
                 Prettier {}
@@ -144,7 +150,7 @@ pub fn setup_preset(mut preset: String, name: String) {
     };
     let out_pyproj: String = pyproj.render().expect("Failed to render");
     let mut f_pyproj =
-        File::create(format!("./{}/pyproject.toml", name)).expect("Could not create file");
+        File::create(format!("{}/pyproject.toml", prefix)).expect("Could not create file");
     f_pyproj
         .write_all(out_pyproj.as_bytes())
         .expect("Could not write to file");

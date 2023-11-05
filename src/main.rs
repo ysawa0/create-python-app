@@ -30,14 +30,15 @@ fn main() {
             println!("Creating project with name: {}", args.name);
             println!("Using preset: {:?} ", args.preset);
             if args.preset.starts_with("python") {
-                setup_preset(args.preset, args.name);
+                setup_preset(args.preset, args.name, true);
             } else {
                 eprintln!("Preset: {:?} not supported yet", args.preset);
             }
         }
         Cli::Update(args) => {
-            println!("Updating project cwith preset: {:?}", args.preset);
-            eprintln!("Update not yet implemented");
+            println!("Updating project with preset: {:?}", args.preset);
+            setup_preset(args.preset, "".to_string(), false);
+            // eprintln!("Update not yet implemented");
         }
     }
 }
