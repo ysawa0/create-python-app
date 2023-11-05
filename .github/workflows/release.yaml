@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  # pull_request:
+  #   branches: [master, main]
+  #   types: [synchronize, opened, reopened, ready_for_review]
+
+jobs:
+  create-release:
+    name: Create Release
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create ${{ github.ref_name }} --generate-notes --title "Version ${{ github.ref_name }}"
+
+  upload-release:
+    name: Build and Release
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Print Runner OS
+        run: echo "Runner OS is ${{ runner.os }}"
+
+      - name: Build Release
+        run: cargo build --release
+
+      - name: Archive Release Binary (Windows)
+        if: runner.os == 'Windows'
+        run: Compress-Archive -Path ./target/release/cpa.exe -DestinationPath cpa-Windows.zip
+        shell: pwsh
+
+      - name: Archive Release Binary (MacOS, Linux)
+        if: runner.os != 'Windows'
+        run: zip -j cpa-${{ runner.os }}.zip ./target/release/cpa
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.ref_name }} "cpa-${{ runner.os }}.zip" --clobber

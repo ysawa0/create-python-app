@@ -14,13 +14,13 @@ enum Cli {
 struct CreateArgs {
     #[clap(long, required = true)]
     name: String,
-    #[clap(long, required = false, default_value = "python")]
+    #[clap(long, required = false, default_value = "python3.10")]
     preset: String,
 }
 
 #[derive(Parser)]
 struct UpdateArgs {
-    #[clap(long, required = false, default_value = "python")]
+    #[clap(long, required = false, default_value = "python3.10")]
     preset: String,
 }
 

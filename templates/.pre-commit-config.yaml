@@ -59,7 +59,7 @@ repos:
       - id: isort # Sorts Python imports into sections and by alphabetical order.
         args:
           - --settings-path
-          - .cpa/pyproject.toml
+          - pyproject.toml
         types:
           - python
 
@@ -69,7 +69,7 @@ repos:
       - id: black # Formats Python code to conform to the Black code style.
         args:
           - --config
-          - .cpa/pyproject.toml
+          - pyproject.toml
         types:
           - python
 

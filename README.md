@@ -1,28 +1,26 @@
 # CPA: Create-Python-App
 
+![CPA Logo](cpa.png)
+
 ## Overview
 
-`cpa` is a cli tool designed to streamline the setup of new Python projects. It automates the creation of Python projects with commonly used configs and boilerplate.
-
-## Goals
-
-- **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
-- **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
-- **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
-
-## Features
-
-- Provides pre-commit hook setup with hooks for checking merge conflicts, large files, and code styling.
+`cpa` is a cli tool for ultra fast setup of new Python projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and dependency management configuration. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing setup time.
 
 ## Installation
 
-Download binary from Github
+### MacOS, Linux
 
-```bash
+Download latest binary and install via provided `install.sh` script or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
 ```
+sh install.sh
+```
 
-Building from source
+### Windows
+
+Download latest binary from [Releases](https://github.com/ysawa0/create-python-app/releases) page
+
+### Building from source
 
 ```bash
 # cd to project
@@ -34,18 +32,25 @@ cargo install --path .
 To create a new project:
 
 ```bash
-cpa create --name <project_name>
+cpa create --name myproject
 ```
 
 Optional params:
 
-- `--preset`: Specifies a Python version for the project. Defaults to "python" which is mapped internally to "python3.10".
+- `--preset`: Specifies a Python version for the project. Defaults to "python3.10"
 
 Example:
 
 ```bash
-cpa create --name my_project --preset python3.10
+cpa create --name myproject --preset python3.10
 ```
+
+## Goals
+
+- **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
+- **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
+- **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
+- Golang, Rust support planned
 
 ## Contributions and Feedback
 

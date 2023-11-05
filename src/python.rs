@@ -7,13 +7,26 @@ use std::io::Write;
 use std::process;
 
 #[derive(Template)]
+#[template(path = ".gitignore", escape = "none")]
+struct GitIgnore {}
+
+#[derive(Template)]
+#[template(path = "Makefile", escape = "none")]
+struct Makefile {}
+
+#[derive(Template)]
+#[template(path = "Dockerfile", escape = "none")]
+struct Dockerfile {}
+
+#[derive(Template)]
+#[template(path = "main.py", escape = "none")]
+struct MainPy {}
+
+#[derive(Template)]
 #[template(path = ".pre-commit-config.yaml", escape = "none")]
 struct PreCommitConfig {
     python: bool,
 }
-#[derive(Template)]
-#[template(path = ".gitignore", escape = "none")]
-struct GitIgnore {}
 
 #[derive(Template)]
 #[template(path = "pyproject.toml", escape = "none")]
@@ -37,38 +50,82 @@ pub fn derive_preset(mut preset: String, name: String) {
     }
 
     let _ = fs::create_dir_all(format!("./{}/.cpa", name));
-    // Render gitignore
-    let gi = GitIgnore {};
-    let out_gi = gi.render().expect("Failed to render");
-    let mut file_gi =
-        File::create(format!("./{}/.gitignore", name)).expect("Could not create file");
-    file_gi
-        .write_all(out_gi.as_bytes())
-        .expect("Could not write to file");
+    // Render .gitignore
+    File::create(format!("./{}/.gitignore", name))
+        .and_then(|mut file| {
+            file.write_all(
+                GitIgnore {}
+                    .render()
+                    .expect("Failed to render .gitignore")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to .gitignore");
+
+    // Render Makefile
+    File::create(format!("./{}/Makefile", name))
+        .and_then(|mut file| {
+            file.write_all(
+                Makefile {}
+                    .render()
+                    .expect("Failed to render Makefile")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to Makefile");
+
+    // Render Dockerfile
+    File::create(format!("./{}/Dockerfile", name))
+        .and_then(|mut file| {
+            file.write_all(
+                Dockerfile {}
+                    .render()
+                    .expect("Failed to render Dockerfile")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to Dockerfile");
+
+    // Render main.py
+    File::create(format!("./{}/main.py", name))
+        .and_then(|mut file| file.write_all(MainPy {}.render().expect("Render fail").as_bytes()))
+        .expect("Failed to render or write to main.py");
 
     // Render pre-commit conf
-    let pc = PreCommitConfig { python: true };
-    let out_pc = pc.render().expect("Failed to render");
-    let mut file_pc =
-        File::create(format!("./{}/.pre-commit-config.yaml", name)).expect("Could not create file");
-    file_pc
-        .write_all(out_pc.as_bytes())
-        .expect("Could not write to file");
+    File::create(format!("./{}/.pre-commit-config.yaml", name))
+        .and_then(|mut file| {
+            file.write_all(
+                PreCommitConfig { python: true }
+                    .render()
+                    .expect("Failed to render .pre-commit-config.yaml")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to .pre-commit-config.yaml");
 
-    // Render conf for each pre-commit hook
-    let f8 = Flake8 {};
-    let out_f8 = f8.render().expect("Failed to render");
-    let mut f_f8 =
-        File::create(format!("./{}/.cpa/flake8.cfg", name)).expect("Could not create file");
-    f_f8.write_all(out_f8.as_bytes())
-        .expect("Could not write to file");
+    // Render Flake8 conf
+    File::create(format!("./{}/.cpa/flake8.cfg", name))
+        .and_then(|mut file| {
+            file.write_all(
+                Flake8 {}
+                    .render()
+                    .expect("Failed to render flake8.cfg")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to flake8.cfg");
 
-    let p = Prettier {};
-    let out_p = p.render().expect("Failed to render");
-    let mut f_p =
-        File::create(format!("./{}/.cpa/prettier.json", name)).expect("Could not create file");
-    f_p.write_all(out_p.as_bytes())
-        .expect("Could not write to file");
+    // Render Prettier conf
+    File::create(format!("./{}/.cpa/prettier.json", name))
+        .and_then(|mut file| {
+            file.write_all(
+                Prettier {}
+                    .render()
+                    .expect("Failed to render prettier.json")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to prettier.json");
 
     // Render Poetry conf
     let re = Regex::new(r"python(3\.\d+|4\.\d+)").unwrap();
@@ -87,7 +144,7 @@ pub fn derive_preset(mut preset: String, name: String) {
     };
     let out_pyproj: String = pyproj.render().expect("Failed to render");
     let mut f_pyproj =
-        File::create(format!("./{}/pypropoject.toml", name)).expect("Could not create file");
+        File::create(format!("./{}/pyproject.toml", name)).expect("Could not create file");
     f_pyproj
         .write_all(out_pyproj.as_bytes())
         .expect("Could not write to file");
