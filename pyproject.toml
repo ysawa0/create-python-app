@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tmp_test"
+name = ""
 version = "0.0.1"
 description = ""
 authors = [
@@ -35,7 +35,7 @@ color = true
 [tool.isort]
 balanced_wrapping = true
 include_trailing_comma = true
-known_first_party = "tmp_test"
+known_first_party = ""
 known_third_party = [
   "boto3",        # Common for AWS
   "django",       # Common web framework, if used
