@@ -77,10 +77,12 @@ jobs:
           echo "Current SHA is $CUR_SHA"
 
           if [[ $GITHUB_REF == "refs/heads/$DEFAULT_BRANCH" ]]; then
-            git pull origin $DEFAULT_BRANCH
-            LAST_SHA=$(git log --pretty=tformat:"%H" -n2 . | tail -n1)
-            echo "Last SHA is $LAST_SHA"
-            pre-commit run --from-ref $LAST_SHA --to-ref $CUR_SHA
+            pre-commit run --all
           else
             pre-commit run --from-ref origin/$DEFAULT_BRANCH --to-ref $CUR_SHA
           fi
+
+        # git fetch origin $DEFAULT_BRANCH
+        # LAST_SHA=$(git log --pretty=tformat:"%H" -n2 . | tail -n1)
+        # echo "Last SHA is $LAST_SHA"
+        # pre-commit run --from-ref $LAST_SHA --to-ref $CUR_SHA
