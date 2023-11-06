@@ -63,14 +63,23 @@ jobs:
           sudo apt-get install shellcheck
 
       - name: Run pre-commits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
+          DEFAULT_BRANCH=$(curl -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY" | jq -r '.default_branch')
+
           CUR_SHA=$(git log --pretty=tformat:"%H" -n1 .)
           LAST_SHA=$(git log --pretty=tformat:"%H" -n2 | tail -n1)
           git fetch
-          echo $GITHUB_REF
-          echo $LAST_SHA
-          if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+
+          echo "Default branch is $DEFAULT_BRANCH"
+          echo "Current SHA is $CUR_SHA"
+          echo "Last SHA is $LAST_SHA"
+
+          if [[ $GITHUB_REF == "refs/heads/$DEFAULT_BRANCH" ]]; then
             pre-commit run --from-ref $LAST_SHA --to-ref $CUR_SHA
           else
-            pre-commit run --from-ref origin/main --to-ref $CUR_SHA
+            pre-commit run --from-ref origin/$DEFAULT_BRANCH --to-ref $CUR_SHA
           fi
