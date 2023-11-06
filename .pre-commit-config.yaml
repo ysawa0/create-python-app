@@ -109,7 +109,7 @@ repos:
           - javascript
           - yaml
           - markdown
-        exclude: templates/.pre-commit-config.yaml
+        exclude: templates/.pre-commit-config.yaml|templates/.github/workflows/ci.yaml
 
   #############################################################################
   # Rust
