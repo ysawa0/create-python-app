@@ -65,11 +65,10 @@ jobs:
       - name: Run pre-commits
         run: |
           CUR_SHA=$(git log --pretty=tformat:"%H" -n1 .)
+          LAST_SHA=$(git log --pretty=tformat:"%H" -n2 | tail -n1)
           git fetch
           if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
-            LAST_SHA=$(git rev-parse HEAD^)
             pre-commit run --from-ref $LAST_SHA --to-ref $CUR_SHA
           else
             pre-commit run --from-ref origin/main --to-ref $CUR_SHA
           fi
-        # pre-commit run --from-ref origin/main --to-ref $CUR_SHA
