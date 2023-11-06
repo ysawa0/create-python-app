@@ -1,0 +1,6 @@
+max_width = 120
+imports_granularity = "Crate"
+group_imports = "StdExternalCrate"
+imports_layout = "Horizontal"
+
+comment_width = 200

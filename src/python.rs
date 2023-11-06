@@ -44,6 +44,10 @@ struct Flake8 {}
 #[template(path = ".cpa/prettier.json", escape = "none")]
 struct Prettier {}
 
+#[derive(Template)]
+#[template(path = ".github/workflows/ci.yaml", escape = "none")]
+struct GHWorkflowCI {}
+
 pub fn setup_preset(mut preset: String, name: String, create: bool) {
     if preset == "python" {
         preset = "python3.10".to_string();
@@ -54,40 +58,26 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     }
 
     let _ = fs::create_dir_all(format!("{}/.cpa", prefix));
+
+    // Render Github Actions CI
+    let _ = fs::create_dir_all(format!("{}/.github/workflows", prefix));
+    File::create(format!("{}/.github/workflows/ci.yaml", prefix))
+        .and_then(|mut file| file.write_all(GHWorkflowCI {}.render().expect("Failed to render ci.yaml").as_bytes()))
+        .expect("Failed to create or write to ci.yaml");
+
     // Render .gitignore
     File::create(format!("{}/.gitignore", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                GitIgnore {}
-                    .render()
-                    .expect("Failed to render .gitignore")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(GitIgnore {}.render().expect("Failed to render .gitignore").as_bytes()))
         .expect("Failed to create or write to .gitignore");
 
     // Render Makefile
     File::create(format!("{}/Makefile", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                Makefile {}
-                    .render()
-                    .expect("Failed to render Makefile")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(Makefile {}.render().expect("Failed to render Makefile").as_bytes()))
         .expect("Failed to create or write to Makefile");
 
     // Render Dockerfile
     File::create(format!("{}/Dockerfile", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                Dockerfile {}
-                    .render()
-                    .expect("Failed to render Dockerfile")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(Dockerfile {}.render().expect("Failed to render Dockerfile").as_bytes()))
         .expect("Failed to create or write to Dockerfile");
 
     // Render main.py
@@ -109,26 +99,12 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
 
     // Render Flake8 conf
     File::create(format!("{}/.cpa/flake8.cfg", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                Flake8 {}
-                    .render()
-                    .expect("Failed to render flake8.cfg")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(Flake8 {}.render().expect("Failed to render flake8.cfg").as_bytes()))
         .expect("Failed to create or write to flake8.cfg");
 
     // Render Prettier conf
     File::create(format!("{}/.cpa/prettier.json", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                Prettier {}
-                    .render()
-                    .expect("Failed to render prettier.json")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(Prettier {}.render().expect("Failed to render prettier.json").as_bytes()))
         .expect("Failed to create or write to prettier.json");
 
     // Render Poetry conf
@@ -147,8 +123,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
         black_target_ver,
     };
     let out_pyproj: String = pyproj.render().expect("Failed to render");
-    let mut f_pyproj =
-        File::create(format!("{}/pyproject.toml", prefix)).expect("Could not create file");
+    let mut f_pyproj = File::create(format!("{}/pyproject.toml", prefix)).expect("Could not create file");
     f_pyproj
         .write_all(out_pyproj.as_bytes())
         .expect("Could not write to file");
