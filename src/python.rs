@@ -48,10 +48,6 @@ struct Prettier {}
 #[template(path = ".github/workflows/ci.yaml", escape = "none")]
 struct GHWorkflowCI {}
 
-// #[derive(Template)]
-// #[template(path = ".github/workflows/ci.yaml", escape = "none")]
-// struct GHWorkflowCI {}
-
 pub fn setup_preset(mut preset: String, name: String, create: bool) {
     if preset == "python" {
         preset = "python3.10".to_string();
@@ -95,7 +91,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
             file.write_all(
                 PreCommitConfig { python: true }
                     .render()
-                    .expect("Failed to render .pre-commit-config.yam")
+                    .expect("Failed to render .pre-commit-config.yaml")
                     .as_bytes(),
             )
         })
