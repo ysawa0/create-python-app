@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Set shfmt version environment variable
+        run: echo "SHFMT_VERSION=v3.7.0" >> $GITHUB_ENV
+
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
@@ -32,18 +35,18 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /usr/local/bin/shfmt
-          # key: ${{ runner.os }}-shfmt-${{ env.SHFMT_VERSION }}
-          key: ${{ runner.os }}-shfmt-
+          key: ${{ runner.os }}-shfmt-${{ env.SHFMT_VERSION }}
           restore-keys: |
+            ${{ runner.os }}-shfmt-${{ env.SHFMT_VERSION }}
             ${{ runner.os }}-shfmt-
 
       - name: Cache Pre-Commit environments
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          # key: ${{ runner.os }}-pc-${{ hashFiles('.pre-commit-config.yaml') }}
-          key: ${{ runner.os }}-pc-
+          key: ${{ runner.os }}-pc-${{ hashFiles('.pre-commit-config.yaml') }}
           restore-keys: |
+            ${{ runner.os }}-pc-${{ hashFiles('.pre-commit-config.yaml') }}
             ${{ runner.os }}-pc-
 
       - name: Install dependencies
@@ -53,7 +56,7 @@ jobs:
 
       - name: Install shfmt
         run: |
-          SHFMT_VERSION="v3.7.0"
+          SHFMT_VERSION=${{ env.SHFMT_VERSION }}
           SHFMT_BIN="shfmt_${SHFMT_VERSION}_linux_amd64"
           if [[ ! -f /usr/local/bin/shfmt ]]; then
             wget -O shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
