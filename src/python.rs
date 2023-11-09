@@ -72,19 +72,12 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
 
     // Render Github Actions CI
     File::create(format!("{}/.github/workflows/ci.yaml", prefix))
-        .and_then(|mut file| file.write_all(GHWorkflowCI {}.render().expect("Failed to render ci.yaml").as_bytes()))
+        .and_then(|mut file| file.write_all(GHWorkflowCI {}.render().expect("Render fail: ci.yaml").as_bytes()))
         .expect("Failed to write to ci.yaml");
 
     // Render .vscode/settings.json
     File::create(format!("{}/.vscode/settings.json", prefix))
-        .and_then(|mut file| {
-            file.write_all(
-                VSCodeSettings {}
-                    .render()
-                    .expect("Failed to render .vscode/settings.json")
-                    .as_bytes(),
-            )
-        })
+        .and_then(|mut file| file.write_all(VSCodeSettings {}.render().expect("Render fail: .vscode/settings.json").as_bytes()))
         .expect("Failed to write to .vscode/settings.json");
 
     // Render .vscode/extensions.json
@@ -93,7 +86,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
             file.write_all(
                 VSCodeExtensions {}
                     .render()
-                    .expect("Failed to render .vscode/extensions.json")
+                    .expect("Render fail: .vscode/extensions.json")
                     .as_bytes(),
             )
         })
@@ -101,23 +94,23 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
 
     // Render .gitignore
     File::create(format!("{}/.gitignore", prefix))
-        .and_then(|mut file| file.write_all(GitIgnore {}.render().expect("Failed to render .gitignore").as_bytes()))
+        .and_then(|mut file| file.write_all(GitIgnore {}.render().expect("Render fail: .gitignore").as_bytes()))
         .expect("Failed to write to .gitignore");
 
     // Render Makefile
     File::create(format!("{}/Makefile", prefix))
-        .and_then(|mut file| file.write_all(Makefile {}.render().expect("Failed to render Makefile").as_bytes()))
+        .and_then(|mut file| file.write_all(Makefile {}.render().expect("Render fail: Makefile").as_bytes()))
         .expect("Failed to write to Makefile");
 
     // Render Dockerfile
     File::create(format!("{}/Dockerfile", prefix))
-        .and_then(|mut file| file.write_all(Dockerfile {}.render().expect("Failed to render Dockerfile").as_bytes()))
+        .and_then(|mut file| file.write_all(Dockerfile {}.render().expect("Render fail: Dockerfile").as_bytes()))
         .expect("Failed to write to Dockerfile");
 
     // Render main.py
     File::create(format!("{}/main.py", prefix))
         .and_then(|mut file| file.write_all(MainPy {}.render().expect("Render fail").as_bytes()))
-        .expect("Failed to render or write to main.py");
+        .expect("Render fail: or write to main.py");
 
     // Render pre-commit conf
     File::create(format!("{}/.pre-commit-config.yaml", prefix))
@@ -125,7 +118,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
             file.write_all(
                 PreCommitConfig { python: true }
                     .render()
-                    .expect("Failed to render .pre-commit-config.yaml")
+                    .expect("Render fail: .pre-commit-config.yaml")
                     .as_bytes(),
             )
         })
@@ -133,12 +126,12 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
 
     // Render Flake8 conf
     File::create(format!("{}/.cpa/flake8.cfg", prefix))
-        .and_then(|mut file| file.write_all(Flake8 {}.render().expect("Failed to render flake8.cfg").as_bytes()))
+        .and_then(|mut file| file.write_all(Flake8 {}.render().expect("Render fail: flake8.cfg").as_bytes()))
         .expect("Failed to write to flake8.cfg");
 
     // Render Prettier conf
     File::create(format!("{}/.cpa/prettier.json", prefix))
-        .and_then(|mut file| file.write_all(Prettier {}.render().expect("Failed to render prettier.json").as_bytes()))
+        .and_then(|mut file| file.write_all(Prettier {}.render().expect("Render fail: prettier.json").as_bytes()))
         .expect("Failed to write to prettier.json");
 
     // Render Poetry conf
