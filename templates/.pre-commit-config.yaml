@@ -40,7 +40,6 @@ repos:
       - id: shellcheck # Lints shell scripts to identify syntax and usage errors, with a specified severity of 'warning'.
         args:
           - --severity=warning
-
 {% if python %}
   #############################################################################
   # Python
@@ -92,7 +91,6 @@ repos:
   #   hooks:
   #     - id: poetry-check # Makes sure the poetry configuration does not get committed in a broken state.
   #     - id: poetry-lock # Ensures the poetry.lock file is up-to-date with the pyproject.toml changes.
-
 {% endif %}
   #############################################################################
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
