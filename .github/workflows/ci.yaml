@@ -67,6 +67,7 @@ jobs:
             sudo mv shfmt /usr/local/bin/
           fi
           sudo apt-get install shellcheck
+          rustup component add clippy
           rustup component add rustfmt
 
       - name: Run pre-commits
