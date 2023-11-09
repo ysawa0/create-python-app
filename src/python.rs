@@ -1,10 +1,11 @@
 extern crate regex;
 
+use std::{
+    fs::{self, File}, io::Write, process
+};
+
 use askama::Template;
 use regex::Regex;
-use std::fs::{self, File};
-use std::io::Write;
-use std::process;
 
 #[derive(Template)]
 #[template(path = ".gitignore", escape = "none")]
