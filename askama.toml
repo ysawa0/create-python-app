@@ -2,4 +2,4 @@
 # Directories to search for templates, relative to the crate root.
 dirs = ["templates"]
 # Unless you add a `-` in a block, whitespace characters won't be trimmed.
-whitespace = "minimize"
+whitespace = "preserve"
