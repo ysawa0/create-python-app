@@ -11,6 +11,14 @@ use std::process;
 struct GitIgnore {}
 
 #[derive(Template)]
+#[template(path = ".vscode/settings.json", escape = "none")]
+struct VSCodeSettings {}
+
+#[derive(Template)]
+#[template(path = ".vscode/extensions.json", escape = "none")]
+struct VSCodeExtensions {}
+
+#[derive(Template)]
 #[template(path = "Makefile", escape = "none")]
 struct Makefile {}
 
@@ -64,6 +72,30 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     File::create(format!("{}/.github/workflows/ci.yaml", prefix))
         .and_then(|mut file| file.write_all(GHWorkflowCI {}.render().expect("Failed to render ci.yaml").as_bytes()))
         .expect("Failed to create or write to ci.yaml");
+
+    // Render .vscode/settings.json
+    File::create(format!("{}/.vscode/settings.json", prefix))
+        .and_then(|mut file| {
+            file.write_all(
+                VSCodeSettings {}
+                    .render()
+                    .expect("Failed to render .vscode/settings.json")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to .vscode/settings.json");
+
+    // Render .vscode/extensions.json
+    File::create(format!("{}/.vscode/extensions.json", prefix))
+        .and_then(|mut file| {
+            file.write_all(
+                VSCodeExtensions {}
+                    .render()
+                    .expect("Failed to render .vscode/extensions.json")
+                    .as_bytes(),
+            )
+        })
+        .expect("Failed to create or write to .vscode/extensions.json");
 
     // Render .gitignore
     File::create(format!("{}/.gitignore", prefix))
