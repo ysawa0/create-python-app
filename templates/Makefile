@@ -23,4 +23,3 @@ endif
 .PHONY: reqtxt
 reqtxt:
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
-

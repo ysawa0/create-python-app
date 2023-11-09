@@ -7,4 +7,3 @@
   "flake8.args": ["--config=.cpa/flake8.cfg"],
   "files.insertFinalNewline": true
 }
-

@@ -86,4 +86,3 @@ jobs:
             pre-commit run --from-ref origin/$DEFAULT_BRANCH --to-ref $CUR_SHA
           fi
 {%- endraw %}
-
