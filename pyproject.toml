@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "example"
+name = "create-python-app"
 version = "0.0.1"
 description = ""
 authors = [
