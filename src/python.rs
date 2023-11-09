@@ -74,12 +74,12 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     // Render Github Actions CI
     File::create(format!("{}/.github/workflows/ci.yaml", prefix))
         .and_then(|mut file| file.write_all(GHWorkflowCI {}.render().expect("Render fail: ci.yaml").as_bytes()))
-        .expect("Failed to write to ci.yaml");
+        .expect("Write fail: ci.yaml");
 
     // Render .vscode/settings.json
     File::create(format!("{}/.vscode/settings.json", prefix))
         .and_then(|mut file| file.write_all(VSCodeSettings {}.render().expect("Render fail: .vscode/settings.json").as_bytes()))
-        .expect("Failed to write to .vscode/settings.json");
+        .expect("Write fail: .vscode/settings.json");
 
     // Render .vscode/extensions.json
     File::create(format!("{}/.vscode/extensions.json", prefix))
@@ -91,22 +91,22 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
                     .as_bytes(),
             )
         })
-        .expect("Failed to write to .vscode/extensions.json");
+        .expect("Write fail: .vscode/extensions.json");
 
     // Render .gitignore
     File::create(format!("{}/.gitignore", prefix))
         .and_then(|mut file| file.write_all(GitIgnore {}.render().expect("Render fail: .gitignore").as_bytes()))
-        .expect("Failed to write to .gitignore");
+        .expect("Write fail: .gitignore");
 
     // Render Makefile
     File::create(format!("{}/Makefile", prefix))
         .and_then(|mut file| file.write_all(Makefile {}.render().expect("Render fail: Makefile").as_bytes()))
-        .expect("Failed to write to Makefile");
+        .expect("Write fail: Makefile");
 
     // Render Dockerfile
     File::create(format!("{}/Dockerfile", prefix))
         .and_then(|mut file| file.write_all(Dockerfile {}.render().expect("Render fail: Dockerfile").as_bytes()))
-        .expect("Failed to write to Dockerfile");
+        .expect("Write fail: Dockerfile");
 
     // Render main.py
     File::create(format!("{}/main.py", prefix))
@@ -123,17 +123,17 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
                     .as_bytes(),
             )
         })
-        .expect("Failed to write to .pre-commit-config.yaml");
+        .expect("Write fail: .pre-commit-config.yaml");
 
     // Render Flake8 conf
     File::create(format!("{}/.cpa/flake8.cfg", prefix))
         .and_then(|mut file| file.write_all(Flake8 {}.render().expect("Render fail: flake8.cfg").as_bytes()))
-        .expect("Failed to write to flake8.cfg");
+        .expect("Write fail: flake8.cfg");
 
     // Render Prettier conf
     File::create(format!("{}/.cpa/prettier.json", prefix))
         .and_then(|mut file| file.write_all(Prettier {}.render().expect("Render fail: prettier.json").as_bytes()))
-        .expect("Failed to write to prettier.json");
+        .expect("Write fail: prettier.json");
 
     // Render Poetry conf
     let re = Regex::new(r"python(3\.\d+|4\.\d+)").unwrap();
