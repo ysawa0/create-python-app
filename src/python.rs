@@ -90,8 +90,6 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
         prefix = format!("./{}", name)
     }
 
-    // Get the current operating system
-
     // Create needed dirs
     let _ = fs::create_dir_all(format!("{}/.cpa", prefix));
     let _ = fs::create_dir_all(format!("{}/.vscode", prefix));
