@@ -158,8 +158,6 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     };
     let out_pyproj: String = pyproj.render().expect("Failed to render");
     let mut f_pyproj = File::create(format!("{}/pyproject.toml", prefix)).expect("Could not create file");
-    f_pyproj
-        .write_all(out_pyproj.as_bytes())
-        .expect("Could not write to file");
+    f_pyproj.write_all(out_pyproj.as_bytes()).expect("Could not write to file");
     println!("Project created at: {}", prefix)
 }

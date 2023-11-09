@@ -11,10 +11,7 @@ use python::setup_preset;
     long_about = "CPA is a cli tool designed to expedite the setup of new projects by automating the creation of various configuration files."
 )]
 enum Cli {
-    #[clap(
-        about = "Create a new project",
-        long_about = "Create a new project using specified preset."
-    )]
+    #[clap(about = "Create a new project", long_about = "Create a new project using specified preset.")]
     Create(CreateArgs),
     #[clap(
         about = "Update existing project",
