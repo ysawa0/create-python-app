@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@nightly
+
       - name: Set shfmt version environment variable
         run: echo "SHFMT_VERSION=v3.7.0" >> $GITHUB_ENV
 
