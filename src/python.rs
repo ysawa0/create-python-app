@@ -111,7 +111,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
     // Render main.py
     File::create(format!("{}/main.py", prefix))
         .and_then(|mut file| file.write_all(MainPy {}.render().expect("Render fail").as_bytes()))
-        .expect("Render fail: or write to main.py");
+        .expect("Render fail: main.py");
 
     // Render pre-commit conf
     File::create(format!("{}/.pre-commit-config.yaml", prefix))
