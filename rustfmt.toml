@@ -1,4 +1,5 @@
 max_width = 140
+# Below require nightly channel, run: rustup default nightly
 imports_granularity = "Crate"
 group_imports = "StdExternalCrate"
 imports_layout = "Horizontal"
