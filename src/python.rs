@@ -71,23 +71,6 @@ struct Prettier {}
 struct GHWorkflowCI {}
 
 fn append_eof(mut s: String) -> String {
-    // let os = env::consts::OS;
-    // if os == "windows" {
-    //     println!("windows append");
-    //     s.push_str("\r\n");
-    // } else if os == "macos" {
-    //     println!("macos append");
-    //     s.push_str("\nblah");
-    //     s.push_str("\r\n");
-
-    //     // s.push('\n');
-    // } else if os == "linux" {
-    //     println!("linux append");
-    //     s.push('\n');
-    // } else {
-    //     println!("else append");
-    //     s.push('\n');
-    // }
     s.push('\n');
     s
 }
