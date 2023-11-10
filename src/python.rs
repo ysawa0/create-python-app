@@ -107,7 +107,7 @@ pub fn setup_preset(mut preset: &str, name: String, create: bool) {
         let ver = caps[1].to_string();
         (ver.clone(), format!("py{}", ver.replace('.', "")))
     } else {
-        eprintln!("Python version not recognized in --preset, invalid input");
+        eprintln!("Python version not recognized in --preset, invalid input. Expected format: 'python3.xx'");
         process::exit(1);
     };
 
