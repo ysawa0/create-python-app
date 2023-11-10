@@ -40,14 +40,14 @@ fn main() {
             println!("Creating project with name: {}", args.name);
             println!("Using preset: {:?} ", args.preset);
             if args.preset.starts_with("python") {
-                setup_preset(args.preset, args.name, true);
+                setup_preset(&args.preset, args.name, true);
             } else {
                 eprintln!("Preset: {:?} not supported", args.preset);
             }
         }
         Cli::Update(args) => {
             println!("Updating project with preset: {:?}", args.preset);
-            setup_preset(args.preset, "".to_string(), false);
+            setup_preset(&args.preset, "".to_string(), false);
         }
     }
 }

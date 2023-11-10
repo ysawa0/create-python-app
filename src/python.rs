@@ -1,7 +1,7 @@
 extern crate regex;
 
 use std::{
-    env, fs::{self, File}, io::Write, process
+    fs::{self, File}, io::Write, process
 };
 
 use askama::Template;
@@ -70,28 +70,31 @@ struct Prettier {}
 #[template(path = ".github/workflows/ci.yaml", escape = "none")]
 struct GHWorkflowCI {}
 
-fn append_eof(content: String) -> String {
-    let os = env::consts::OS;
-    let mut s = content.clone();
-    if os == "windows" {
-        println!("windows append");
-        s.push_str("\r\n");
-    } else if os == "macos" {
-        println!("macos append");
-        s.push('\n');
-    } else if os == "linux" {
-        println!("linux append");
-        s.push('\n');
-    } else {
-        println!("else append");
-        s.push('\n');
-    }
+fn append_eof(mut s: String) -> String {
+    // let os = env::consts::OS;
+    // if os == "windows" {
+    //     println!("windows append");
+    //     s.push_str("\r\n");
+    // } else if os == "macos" {
+    //     println!("macos append");
+    //     s.push_str("\nblah");
+    //     s.push_str("\r\n");
+
+    //     // s.push('\n');
+    // } else if os == "linux" {
+    //     println!("linux append");
+    //     s.push('\n');
+    // } else {
+    //     println!("else append");
+    //     s.push('\n');
+    // }
+    s.push('\n');
     s
 }
 
-pub fn setup_preset(mut preset: String, name: String, create: bool) {
+pub fn setup_preset(mut preset: &str, name: String, create: bool) {
     if preset == "python" {
-        preset = "python3.10".to_string();
+        preset = "python3.10";
     }
     let mut prefix: String = "./".to_string();
     if create {
@@ -117,7 +120,7 @@ pub fn setup_preset(mut preset: String, name: String, create: bool) {
 
     // Render Poetry conf
     let re = Regex::new(r"python(3\.\d+|4\.\d+)").unwrap();
-    let (python_ver, black_target_ver) = if let Some(caps) = re.captures(&preset) {
+    let (python_ver, black_target_ver) = if let Some(caps) = re.captures(preset) {
         let ver = caps[1].to_string();
         (ver.clone(), format!("py{}", ver.replace('.', "")))
     } else {
