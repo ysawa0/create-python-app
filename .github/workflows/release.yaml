@@ -39,7 +39,7 @@ jobs:
       - name: Install sccache
         run: |
           echo "Runner OS is ${{ runner.os }}"
-          cargo install sccache
+        # cargo install sccache
 
       - name: Cache target dir
         uses: actions/cache@v3
