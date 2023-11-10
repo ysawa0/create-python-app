@@ -1,7 +1,10 @@
 mod python;
 
+use std::process;
+
 use clap::Parser;
 use python::setup_preset;
+use regex::Regex;
 
 #[derive(Parser)]
 #[clap(
@@ -34,20 +37,30 @@ struct UpdateArgs {
     preset: String,
 }
 
+fn check_pyver(preset: &str) {
+    let re = Regex::new(r"python(3\.\d+|4\.\d+)").unwrap();
+    if re.captures(preset).is_none() {
+        eprintln!("Python version not recognized in --preset, invalid input. Expected format: 'python3.xx'");
+        process::exit(1);
+    };
+}
+
 fn main() {
     match Cli::parse() {
         Cli::Create(args) => {
             println!("Creating project with name: {}", args.name);
             println!("Using preset: {:?} ", args.preset);
             if args.preset.starts_with("python") {
-                setup_preset(args.preset, args.name, true);
+                check_pyver(&args.preset);
+                setup_preset(&args.preset, args.name, true);
             } else {
                 eprintln!("Preset: {:?} not supported", args.preset);
             }
         }
         Cli::Update(args) => {
             println!("Updating project with preset: {:?}", args.preset);
-            setup_preset(args.preset, "".to_string(), false);
+            check_pyver(&args.preset);
+            setup_preset(&args.preset, "".to_string(), false);
         }
     }
 }
