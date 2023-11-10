@@ -20,7 +20,7 @@ jobs:
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create ${{ github.ref_name }} --generate-notes --title "Version ${{ github.ref_name }}"
+        run: gh release create ${{ github.ref_name }} --generate-notes --title "${{ github.ref_name }}"
 
   upload-release:
     name: Build and Release
@@ -34,22 +34,27 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@nightly
 
-      - name: Print Runner OS
-        run: echo "Runner OS is ${{ runner.os }}"
+      - name: Install sccache
+        run: |
+          echo "Runner OS is ${{ runner.os }}"
+          cargo install sccache
 
       - name: Cache target dir
         uses: actions/cache@v3
         with:
           path: |
             target
+            ~/.cache/sccache
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
             ${{ runner.os }}-cargo-
 
       - name: Build Release
+        env:
+          RUSTC_WRAPPER: sccache # Setting sccache as Rust compiler wrapper
         run: cargo build --release
 
       - name: Archive Release Binary (Windows)
