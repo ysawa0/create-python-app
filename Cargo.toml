@@ -16,4 +16,4 @@ opt-level = 1
 
 [build]
 rustflags = ["-Z", "threads=4"]
-rustc-wrapper = "sccache" # Use sccache for caching compilation
+# rustc-wrapper = "sccache" # Use sccache for caching compilation

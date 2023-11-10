@@ -36,7 +36,7 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@nightly
 
-      - name: Install sccache
+      - name: Set up
         run: |
           echo "Runner OS is ${{ runner.os }}"
         # cargo install sccache
@@ -46,15 +46,15 @@ jobs:
         with:
           path: |
             target
-            ~/.cache/sccache
+          # ~/.cache/sccache
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
             ${{ runner.os }}-cargo-
 
       - name: Build Release
-        env:
-          RUSTC_WRAPPER: sccache # Setting sccache as Rust compiler wrapper
+        # env:
+        #   RUSTC_WRAPPER: sccache # Setting sccache as Rust compiler wrapper
         run: cargo build --release
 
       - name: Archive Release Binary (Windows)
