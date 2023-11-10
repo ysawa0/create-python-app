@@ -74,8 +74,16 @@ fn append_eof(content: String) -> String {
     let os = env::consts::OS;
     let mut s = content.clone();
     if os == "windows" {
+        println!("windows append");
         s.push_str("\r\n");
+    } else if os == "macos" {
+        println!("macos append");
+        s.push('\n');
+    } else if os == "linux" {
+        println!("linux append");
+        s.push('\n');
     } else {
+        println!("else append");
         s.push('\n');
     }
     s
