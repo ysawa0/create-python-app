@@ -20,6 +20,11 @@ impl<T: Template> CPATemplate for T {
     }
 }
 
+fn append_eof(mut s: String) -> String {
+    s.push('\n');
+    s
+}
+
 #[derive(Template)]
 #[template(path = ".gitignore", escape = "none")]
 struct GitIgnore {}
@@ -69,11 +74,6 @@ struct Prettier {}
 #[derive(Template)]
 #[template(path = ".github/workflows/ci.yaml", escape = "none")]
 struct GHWorkflowCI {}
-
-fn append_eof(mut s: String) -> String {
-    s.push('\n');
-    s
-}
 
 pub fn setup_preset(mut preset: &str, name: String, create: bool) {
     if preset == "python" {
