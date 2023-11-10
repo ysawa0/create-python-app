@@ -39,7 +39,6 @@ struct UpdateArgs {
 
 fn check_pyver(preset: &str) {
     let re = Regex::new(r"python(3\.\d+|4\.\d+)").unwrap();
-    // if let Some(caps) = re.captures(preset) {
     if re.captures(preset).is_none() {
         eprintln!("Python version not recognized in --preset, invalid input. Expected format: 'python3.xx'");
         process::exit(1);

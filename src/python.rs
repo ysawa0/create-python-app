@@ -11,7 +11,7 @@ trait CPATemplate {
     fn write(&self, prefix: &str, path: &str);
 }
 
-// Implement the new trait for any type that implements `askama::Template`
+// Implement convenience trait for any type that implements `askama::Template`
 impl<T: Template> CPATemplate for T {
     fn write(&self, prefix: &str, path: &str) {
         let content = append_eof(self.render().expect("Failed to render file."));
