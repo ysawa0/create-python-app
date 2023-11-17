@@ -33,6 +33,8 @@ struct CreateArgs {
 
 #[derive(Parser)]
 struct UpdateArgs {
+    #[clap(long, required = true)]
+    name: String,
     #[clap(long, required = false, default_value = "python3.10")]
     preset: String,
 }
@@ -58,9 +60,14 @@ fn main() {
             }
         }
         Cli::Update(args) => {
-            println!("Updating project with preset: {:?}", args.preset);
-            check_pyver(&args.preset);
-            setup_preset(&args.preset, "".to_string(), false);
+            println!("Updating project with name: {}", args.name);
+            println!("Using preset: {:?} ", args.preset);
+            if args.preset.starts_with("python") {
+                check_pyver(&args.preset);
+                setup_preset(&args.preset, args.name, false);
+            } else {
+                eprintln!("Preset: {:?} not supported", args.preset);
+            }
         }
     }
 }

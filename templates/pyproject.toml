@@ -1,3 +1,4 @@
+# File set up by cpa: https://github.com/ysawa0/create-python-app for more info.
 [tool.poetry]
 name = "{{ name }}"
 version = "0.0.1"
