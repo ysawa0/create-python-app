@@ -54,7 +54,7 @@ cpa create --name myproject --preset python3.10
 Update current working directory with CPA preset.
 
 ```bash
-cpa update --preset python3.10
+cpa update --name myproject --preset python3.10
 ```
 
 # Goals
