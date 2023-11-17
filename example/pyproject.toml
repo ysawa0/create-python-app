@@ -1,3 +1,4 @@
+# This file was configured by CPA. For additional details: https://github.com/ysawa0/create-python-app
 [tool.poetry]
 name = "example"
 version = "0.0.1"
