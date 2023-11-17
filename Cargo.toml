@@ -1,9 +1,19 @@
 [package]
 name = "cpa"
-version = "0.0.9"
+version = "0.0.10"
 edition = "2021"
 
 [dependencies]
 askama = "0.12.1"
 clap = { version = "4.4.6", features = ["derive"] }
 regex = "1.10.2"
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+opt-level = 1
+
+[build]
+rustflags = ["-Z", "threads=4"]
+# rustc-wrapper = "sccache" # Use sccache for caching compilation

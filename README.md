@@ -51,6 +51,12 @@ Example:
 cpa create --name myproject --preset python3.10
 ```
 
+Update current working directory with CPA preset.
+
+```bash
+cpa update --name myproject --preset python3.10
+```
+
 # Goals
 
 - **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
