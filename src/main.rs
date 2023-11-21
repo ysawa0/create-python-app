@@ -1,9 +1,11 @@
-mod python;
+mod presets;
 
 use std::process;
 
 use clap::Parser;
-use python::setup_preset;
+use presets::common;
+use presets::python;
+use presets::rust;
 use regex::Regex;
 
 #[derive(Parser)]
@@ -54,7 +56,12 @@ fn main() {
             println!("Using preset: {:?} ", args.preset);
             if args.preset.starts_with("python") {
                 check_pyver(&args.preset);
-                setup_preset(&args.preset, args.name, true);
+                let prefix = common(&args.name, true);
+                python(&args.name, &prefix, &args.preset);
+                // setup_preset(&args.preset, args.name, true);
+            } else if args.preset == "rust" {
+                let prefix = common(&args.name, true);
+                rust(&args.name, &prefix, &args.preset);
             } else {
                 eprintln!("Preset: {:?} not supported", args.preset);
             }
