@@ -91,8 +91,7 @@ repos:
   #   hooks:
   #     - id: poetry-check # Makes sure the poetry configuration does not get committed in a broken state.
   #     - id: poetry-lock # Ensures the poetry.lock file is up-to-date with the pyproject.toml changes.
-{%+ endif %}
-{% if language == "rust" +%}
+{%+ endif %}{% if language == "rust" +%}
   #############################################################################
   # Rust
   #############################################################################
@@ -102,7 +101,7 @@ repos:
       - id: fmt # Formats Rust code using rustfmt
       - id: cargo-check # Checks Rust code for compilation errors and warnings
       - id: clippy # Lints Rust code with clippy for common mistakes and style issues
-{%+ endif %}
+{%- endif %}
   #############################################################################
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
