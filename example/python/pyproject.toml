@@ -1,6 +1,5 @@
-# This file was configured by CPA. For additional details: https://github.com/ysawa0/create-python-app
 [tool.poetry]
-name = "example"
+name = "example/python"
 version = "0.0.1"
 description = ""
 authors = [
@@ -36,7 +35,7 @@ color = true
 [tool.isort]
 balanced_wrapping = true
 include_trailing_comma = true
-known_first_party = "example"
+known_first_party = "example/python"
 known_third_party = [
   "boto3",        # Common for AWS
   "django",       # Common web framework, if used

@@ -1,4 +1,3 @@
-# This file was configured by CPA. For additional details: https://github.com/ysawa0/create-python-app
 [tool.poetry]
 name = "{{ name }}"
 version = "0.0.1"

@@ -1,0 +1,9 @@
+{
+  "[python]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "flake8.args": ["--config=.cpa/flake8.cfg"],
+  "files.insertFinalNewline": true
+}
