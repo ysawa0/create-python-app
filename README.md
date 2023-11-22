@@ -18,8 +18,7 @@ curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/instal
 
 ```bash
 # cpa will be installed to ~/bin/cpa
-# add ~/bin to your PATH
-# eg: echo "export PATH=$PATH:~/bin" >> ~/.zshrc
+# The installer will add ~/bin to your PATH
 ```
 
 ### Windows
@@ -43,18 +42,20 @@ cpa create --name myproject
 
 Optional params:
 
-- `--preset`: Specifies a Python version for the project. Defaults to "python3.10"
+- `--preset`: Specifies a preset for the project. Defaults to "python3.10". "pythonx.yz" and "rust" are supported.
 
 Example:
 
 ```bash
 cpa create --name myproject --preset python3.10
+cpa create --name myproject --preset rust
 ```
 
 Update current working directory with CPA preset.
 
 ```bash
 cpa update --name myproject --preset python3.10
+cpa create --name myproject --preset rust
 ```
 
 # Goals
@@ -62,7 +63,7 @@ cpa update --name myproject --preset python3.10
 - **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
 - **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
 - **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
-- Golang, Rust support planned
+- Golang support planned
 
 # Contributions and Feedback
 

@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "{{ name }}"
+version = "0.0.1"
+description = ""
+authors = [
+  "My Name <myname@example.com>"
+]
+license = ""
+
+[build-system]
+requires = ["poetry-core>=1.7.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+skip-string-normalization = false
+target-version = ['{{ black_target_ver }}']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+color = true
+
+[tool.isort]
+balanced_wrapping = true
+include_trailing_comma = true
+known_first_party = "{{ name }}"
+known_third_party = [
+  "boto3",        # Common for AWS
+  "django",       # Common web framework, if used
+  "flask",        # Common web framework, if used
+  "jinja2",       # Common templating engine
+  "matplotlib",   # Common for plotting
+  "numpy",        # Common for numerical operations
+  "pandas",       # Common for data manipulation
+  "pendulum",     # Common for date time
+  "pytest",       # Common for testing
+  "requests",     # Common for HTTP requests
+  "sqlalchemy",   # Common ORM for databases
+]
+multi_line_output = 3
+profile = "black"
+line_length = 120
+
+[tool.poetry.dependencies]
+python = "^{{ python_ver }}"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = ">=3.5.0"
+pytest = "^7.3.1"
+pytest-cov = "^4.1.0"
