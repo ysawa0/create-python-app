@@ -101,7 +101,7 @@ repos:
       - id: fmt # Formats Rust code using rustfmt
       - id: cargo-check # Checks Rust code for compilation errors and warnings
       - id: clippy # Lints Rust code with clippy for common mistakes and style issues
-{%- endif %}
+{%+ endif %}
   #############################################################################
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
