@@ -2,7 +2,7 @@
 
 ![CPA Logo](cpa.png)
 
-`cpa` is a cli tool for ultra fast setup of new Python & Rust projects. It automates the creation of config files like style & lint checks, gitignore, Dockerfile, dependency mangement, etc. An opinionated set of pre-commit hooks are included for enforcing best practices & reducing dev time.
+`cpa` is a cli tool for ultra fast setup of new Python & Rust projects. It automates the creation of config files like style & lint checks, gitignore, Dockerfile, dependency mangement, etc. An opinionated set of pre-commit hooks + Github Actions CI are included for enforcing best practices & reducing dev time.
 
 Example outputs are provided in [./example](https://github.com/ysawa0/create-python-app/tree/main/example)
 
