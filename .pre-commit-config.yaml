@@ -6,7 +6,7 @@ repos:
   # Misc
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-merge-conflict # Searches for merge conflict markers within files.
       - id: check-added-large-files # Blocks commits that add large files. Default limit is 500kB.
@@ -24,7 +24,7 @@ repos:
   # JSON, TOML
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-json # Validates JSON files to ensure they are properly formatted and syntactically correct.
         types: [json]
@@ -46,7 +46,7 @@ repos:
   # Python
   #############################################################################
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.1
+    rev: v2.3.1
     hooks:
       - id: autoflake # Removes unused imports and unused variables from Python code.
         args:
@@ -54,7 +54,7 @@ repos:
           - --remove-all-unused-imports
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort # Sorts Python imports into sections and by alphabetical order.
         args:
@@ -64,7 +64,7 @@ repos:
           - python
 
   - repo: https://github.com/psf/black
-    rev: 23.10.1
+    rev: 24.4.2
     hooks:
       - id: black # Formats Python code to conform to the Black code style.
         args:
@@ -75,7 +75,7 @@ repos:
         exclude: templates/
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8 # Lints Python code for errors and code style issues based on PEP8.
         args:
@@ -99,7 +99,7 @@ repos:
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier
