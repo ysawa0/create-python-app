@@ -6,6 +6,7 @@ setuppc:
 	python3 -m pip install pre-commit
 	pre-commit install
 
+
 ifeq ($(shell uname),Darwin)
 	@echo "Setting up shfmt (macOS)..."
 	brew install shfmt
@@ -13,13 +14,17 @@ ifeq ($(shell uname),Darwin)
 	@echo "Setting up shellcheck (macOS)..."
 	brew install shellcheck
 else
+ifeq ($(shell uname),x86_64)
 	@echo "Setting up shfmt (Linux)..."
-	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/shfmt_${SHFMT_VERSION}_$(shell uname -m)"
+	SHFMT_BIN="shfmt_${SHFMT_VERSION}_linux_amd64"
+	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
 	chmod +x shfmt
-	sudo mv shfmt /usr/local/bin/
-
+	sudo mv shfmt /usr/local/bin/shfmt
 	@echo "Setting up shellcheck (Linux)..."
 	sudo apt-get install shellcheck || sudo yum install shellcheck || sudo dnf install shellcheck
+else
+	@echo "Architecture not supported! Update this Makefile!"
+	exit 1
 endif
 
 .PHONY: reqtxt
