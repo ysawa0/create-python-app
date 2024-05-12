@@ -45,7 +45,11 @@ pub struct Makefile {}
 pub struct GhCI {}
 
 #[derive(Template)]
-#[template(path = ".cpa/prettier.json", escape = "none")]
+#[template(path = "base/ci.yaml", escape = "none")]
+pub struct GhCIBase {}
+
+#[derive(Template)]
+#[template(path = ".ci/prettier.json", escape = "none")]
 pub struct Prettier {}
 
 #[derive(Template)]
@@ -54,16 +58,16 @@ pub struct PreCommitConfig {
     pub language: String,
 }
 
+#[derive(Template)]
+#[template(path = "base/.pre-commit-config.yaml", escape = "none")]
+pub struct PreCommitConfigBase {}
+
 ////////////////////////////////////
 // PYTHON
 ////////////////////////////////////
 #[derive(Template)]
 #[template(path = "python/Dockerfile", escape = "none")]
 pub struct PyDockerfile {}
-
-#[derive(Template)]
-#[template(path = "python/main.py", escape = "none")]
-pub struct PyMain {}
 
 #[derive(Template)]
 #[template(path = "python/pyproject.toml", escape = "none")]
@@ -74,7 +78,7 @@ pub struct PyProject {
 }
 
 #[derive(Template)]
-#[template(path = ".cpa/flake8.cfg", escape = "none")]
+#[template(path = ".ci/flake8.cfg", escape = "none")]
 pub struct Flake8 {}
 
 ////////////////////////////////////
@@ -98,7 +102,7 @@ pub fn common(name: &str, create: bool, lang: &Language) -> String {
     let prefix: String = if create { format!("./{}", name) } else { "./".to_string() };
 
     // Create needed dirs
-    let _ = fs::create_dir_all(format!("{}/.cpa", prefix));
+    let _ = fs::create_dir_all(format!("{}/.ci", prefix));
     let _ = fs::create_dir_all(format!("{}/.vscode", prefix));
     let _ = fs::create_dir_all(format!("{}/.github/workflows", prefix));
 
@@ -110,7 +114,7 @@ pub fn common(name: &str, create: bool, lang: &Language) -> String {
         language: lang.language.to_string(),
     }
     .write(&prefix, ".pre-commit-config.yaml");
-    Prettier {}.write(&prefix, ".cpa/prettier.json");
+    Prettier {}.write(&prefix, ".ci/prettier.json");
     VSCodeSettings {}.write(&prefix, ".vscode/settings.json");
     VSCodeExtensions {}.write(&prefix, ".vscode/extensions.json");
     prefix
@@ -120,8 +124,7 @@ pub fn python(name: &str, prefix: &str, lang: &Language) {
     let black_target_ver = format!("py{}", lang.ver.replace('.', ""));
 
     // Render Python-specific files
-    Flake8 {}.write(prefix, ".cpa/flake8.cfg");
-    PyMain {}.write(prefix, "main.py");
+    Flake8 {}.write(prefix, ".ci/flake8.cfg");
     PyDockerfile {}.write(prefix, "Dockerfile");
 
     let pyproj: PyProject = PyProject {
@@ -139,4 +142,20 @@ pub fn rust(name: &str, prefix: &str) {
     RustMain {}.write(prefix, "src/main.rs");
     CargoToml { name: name.to_string() }.write(prefix, "Cargo.toml");
     RustFmt {}.write(prefix, "rustfmt.toml");
+}
+
+pub fn base(name: &str, create: bool, _lang: &Language) -> String {
+    let prefix: String = if create { format!("./{}", name) } else { "./".to_string() };
+
+    // Create needed dirs
+    let _ = fs::create_dir_all(format!("{}/.ci", prefix));
+    let _ = fs::create_dir_all(format!("{}/.github/workflows", prefix));
+
+    // Render common files
+    GhCIBase {}.write(&prefix, ".github/workflows/ci.yaml");
+    GitIgnore {}.write(&prefix, ".gitignore");
+    Makefile {}.write(&prefix, "Makefile");
+    PreCommitConfigBase {}.write(&prefix, ".pre-commit-config.yaml");
+    Prettier {}.write(&prefix, ".ci/prettier.json");
+    prefix
 }

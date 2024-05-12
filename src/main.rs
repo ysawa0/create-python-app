@@ -3,7 +3,7 @@ mod presets;
 use std::process;
 
 use clap::Parser;
-use presets::{common, python, rust};
+use presets::{base, common, python, rust};
 use regex::Regex;
 
 #[derive(Parser)]
@@ -46,6 +46,13 @@ pub struct Language {
 
 #[allow(clippy::needless_return)]
 fn validate_preset(preset: &str) -> Language {
+    if preset == "base" {
+        return Language {
+            language: "base".to_string(),
+            ver: "".to_string(),
+        };
+    }
+
     if preset == "rust" {
         return Language {
             language: "rust".to_string(),
@@ -78,6 +85,8 @@ fn main() {
             } else if lang.language == "rust" {
                 let prefix = common(&args.name, create, &lang);
                 rust(&args.name, &prefix);
+            } else if lang.language == "base" {
+                let _prefix = base(&args.name, create, &lang);
             } else {
                 eprintln!("Preset: {:?} not supported", args.preset);
             }
@@ -93,6 +102,8 @@ fn main() {
             } else if lang.language == "rust" {
                 let prefix = common(&args.name, create, &lang);
                 rust(&args.name, &prefix);
+            } else if lang.language == "base" {
+                let _prefix = base(&args.name, create, &lang);
             } else {
                 eprintln!("Preset: {:?} not supported", args.preset);
             }
