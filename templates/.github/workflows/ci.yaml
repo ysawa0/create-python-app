@@ -3,6 +3,10 @@ name: CI
 
 on:
   pull_request: # Start the job on all PRs
+  push:
+    branches:
+      - master
+      - main
 
 jobs:
   precommit:

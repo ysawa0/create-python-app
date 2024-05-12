@@ -45,10 +45,6 @@ pub struct Makefile {}
 pub struct GhCI {}
 
 #[derive(Template)]
-#[template(path = "base/ci.yaml", escape = "none")]
-pub struct GhCIBase {}
-
-#[derive(Template)]
 #[template(path = ".ci/prettier.json", escape = "none")]
 pub struct Prettier {}
 
@@ -152,7 +148,7 @@ pub fn base(name: &str, create: bool, _lang: &Language) -> String {
     let _ = fs::create_dir_all(format!("{}/.github/workflows", prefix));
 
     // Render common files
-    GhCIBase {}.write(&prefix, ".github/workflows/ci.yaml");
+    GhCI {}.write(&prefix, ".github/workflows/ci.yaml");
     GitIgnore {}.write(&prefix, ".gitignore");
     Makefile {}.write(&prefix, "Makefile");
     PreCommitConfigBase {}.write(&prefix, ".pre-commit-config.yaml");
