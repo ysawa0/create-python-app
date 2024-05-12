@@ -2,15 +2,15 @@
 
 ![CPA Logo](cpa.png)
 
-`cpa` is a cli tool for ultra fast setup of new Python & Rust projects. It automates the creation of config files for style & lint checks, gitignore, a basic Dockerfile and Poetry for dependency management. An opinionated set of pre-commit hooks are included for enforcing best practices and reducing dev time.
+`cpa` is a cli tool for ultra fast setup of new Python & Rust projects. It automates the creation of config files like style & lint checks, gitignore, Dockerfile, dependency mangement, etc. An opinionated set of pre-commit hooks + Github Actions CI are included for enforcing best practices & reducing dev time.
 
-An example output is provided in [./example](https://github.com/ysawa0/create-python-app/tree/main/example)
+Example outputs are provided in [./example](https://github.com/ysawa0/create-python-app/tree/main/example)
 
 # Installation
 
-### MacOS, Linux
+#### MacOS, Linux
 
-Install via script below or get it from [Releases](https://github.com/ysawa0/create-python-app/releases)
+Install via script below or get from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/install.sh | bash
@@ -21,14 +21,13 @@ curl -sSL https://raw.githubusercontent.com/ysawa0/create-python-app/main/instal
 # The installer will add ~/bin to your PATH
 ```
 
-### Windows
+#### Windows
 
-Download latest binary from [Releases](https://github.com/ysawa0/create-python-app/releases) page
+Download latest binary from [Releases](https://github.com/ysawa0/create-python-app/releases)
 
-### Building from source
+#### Building from source
 
 ```bash
-# cd to project
 cargo install --path .
 ```
 
@@ -55,14 +54,15 @@ Update current working directory with CPA preset.
 
 ```bash
 cpa update --name myproject --preset python3.10
-cpa create --name myproject --preset rust
+cpa update --name myproject --preset rust
 ```
 
 # Goals
 
 - **Speed up Project Creation**: Reduce the time spent on repetitive setup tasks
 - **Best Practices**: Encourage best practices for code quality, formatting, and style by including configs for tools like `black`, `isort`, and `flake8`.
-- **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, and configuring code linters and formatters.
+- **Automation**: Automate tasks such as generating `.gitignore` files, setting up pre-commit hooks, Github Action CI, configuring linters & formatters.
+- Supports Rust and Python.
 - Golang support planned
 
 # Contributions and Feedback
