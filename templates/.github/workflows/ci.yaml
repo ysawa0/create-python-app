@@ -1,5 +1,5 @@
 {% raw -%}
-name: CI
+name: ci
 
 on:
   pull_request: # Start the job on all PRs

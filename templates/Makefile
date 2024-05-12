@@ -1,3 +1,5 @@
+SHFMT_VERSION := v3.8.0
+
 .PHONY: setuppc
 setuppc:
 	@echo "Setting up pre-commit and hooks..."
@@ -12,9 +14,9 @@ ifeq ($(shell uname),Darwin)
 	brew install shellcheck
 else
 	@echo "Setting up shfmt (Linux)..."
-	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/v3.7.0/shfmt_v3.7.0_$(shell uname -m)"
+	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/shfmt_${SHFMT_VERSION}_$(shell uname -m)"
 	chmod +x shfmt
-	sudo mv shfmt /usr/local/bin/shfmt
+	sudo mv shfmt /usr/local/bin/
 
 	@echo "Setting up shellcheck (Linux)..."
 	sudo apt-get install shellcheck || sudo yum install shellcheck || sudo dnf install shellcheck
@@ -22,4 +24,5 @@ endif
 
 .PHONY: reqtxt
 reqtxt:
-	poetry export -f requirements.txt --output requirements.txt --without-hashes
+	poetry export -f requirements.txt --output requirements.txt
+
