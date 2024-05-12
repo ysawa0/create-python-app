@@ -60,9 +60,7 @@ pub struct PreCommitConfig {
 
 #[derive(Template)]
 #[template(path = "base/.pre-commit-config.yaml", escape = "none")]
-pub struct PreCommitConfigBase {
-    pub language: String,
-}
+pub struct PreCommitConfigBase {}
 
 ////////////////////////////////////
 // PYTHON
@@ -146,7 +144,7 @@ pub fn rust(name: &str, prefix: &str) {
     RustFmt {}.write(prefix, "rustfmt.toml");
 }
 
-pub fn base(name: &str, create: bool, lang: &Language) -> String {
+pub fn base(name: &str, create: bool, _lang: &Language) -> String {
     let prefix: String = if create { format!("./{}", name) } else { "./".to_string() };
 
     // Create needed dirs
@@ -157,10 +155,7 @@ pub fn base(name: &str, create: bool, lang: &Language) -> String {
     GhCIBase {}.write(&prefix, ".github/workflows/ci.yaml");
     GitIgnore {}.write(&prefix, ".gitignore");
     Makefile {}.write(&prefix, "Makefile");
-    PreCommitConfigBase {
-        language: lang.language.to_string(),
-    }
-    .write(&prefix, ".pre-commit-config.yaml");
+    PreCommitConfigBase {}.write(&prefix, ".pre-commit-config.yaml");
     Prettier {}.write(&prefix, ".ci/prettier.json");
     prefix
 }
