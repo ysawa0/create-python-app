@@ -6,7 +6,7 @@ repos:
   # Misc
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-merge-conflict # Searches for merge conflict markers within files.
       - id: check-added-large-files # Blocks commits that add large files. Default limit is 500kB.
@@ -23,7 +23,7 @@ repos:
   # JSON, TOML
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-json # Validates JSON files to ensure they are properly formatted and syntactically correct.
         types: [json]
@@ -42,7 +42,7 @@ repos:
   # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier

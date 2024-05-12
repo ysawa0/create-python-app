@@ -23,3 +23,8 @@ endif
 .PHONY: reqtxt
 reqtxt:
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
+
+.PHONY: pcao
+pcao:
+	pre-commit autoupdate
+	pre-commit autoupdate -c templates/base/.pre-commit-config.yaml
