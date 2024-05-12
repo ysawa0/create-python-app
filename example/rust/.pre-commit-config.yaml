@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier
-        args: [--config, .cpa/prettier.json, --write]
+        args: [--config, .ci/prettier.json, --write]
         types_or:
           - css
           - scss

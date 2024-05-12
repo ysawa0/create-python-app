@@ -79,7 +79,7 @@ repos:
     hooks:
       - id: flake8 # Lints Python code for errors and code style issues based on PEP8.
         args:
-          - --config=.cpa/flake8.cfg
+          - --config=.ci/flake8.cfg
         types:
           - python
         exclude: templates/
@@ -103,7 +103,7 @@ repos:
     hooks:
       - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier
-        args: [--config, .cpa/prettier.json, --write]
+        args: [--config, .ci/prettier.json, --write]
         types_or:
           - css
           - scss
@@ -112,7 +112,7 @@ repos:
           - javascript
           - yaml
           - markdown
-        exclude: templates/.pre-commit-config.yaml|templates/.github/workflows/ci.yaml
+        exclude: templates/.pre-commit-config.yaml|templates/.github/workflows/ci.yaml|templates/base/ci.yaml
 
   #############################################################################
   # Rust
