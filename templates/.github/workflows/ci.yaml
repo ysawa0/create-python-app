@@ -56,7 +56,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+          REPO_NAME=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///')
+          DEFAULT_BRANCH=$(curl -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY" | jq -r '.default_branch')
 
           echo "Default branch = $DEFAULT_BRANCH"
           echo "Current SHA    = ${{ github. sha }}"

@@ -93,7 +93,7 @@ repos:
   #     - id: poetry-lock # Ensures the poetry.lock file is up-to-date with the pyproject.toml changes.
 
   #############################################################################
-  # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
+  # Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.3
@@ -102,10 +102,8 @@ repos:
         name: prettier
         args: [--config, .ci/prettier.json, --write]
         types_or:
-          - css
-          - scss
-          - ts
-          - tsx
           - javascript
+          - tsx
+          - ts
           - yaml
           - markdown
