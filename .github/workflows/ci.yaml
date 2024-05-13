@@ -54,6 +54,8 @@ jobs:
         run: |
           echo "uname=$(uname)"
           make setuppc
+          rustup component add rustfmt
+          rustup component add clippy
 
       - name: Run pre-commits
         env:
