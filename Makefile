@@ -15,15 +15,14 @@ ifeq ($(shell uname),Darwin)
 else ifeq ($(shell uname -s),Linux)
 ifeq ($(shell uname -m),x86_64)
 	@echo "Setting up shfmt for amd64 (Linux)..."
-	SHFMT_BIN=shfmt_${SHFMT_VERSION}_linux_amd64
+	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/shfmt_${SHFMT_VERSION}_linux_amd64"
 else ifeq ($(shell uname -m),aarch64)
 	@echo "Setting up shfmt for arm64 (Linux)..."
-	SHFMT_BIN=shfmt_${SHFMT_VERSION}_linux_arm64
+	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/shfmt_${SHFMT_VERSION}_linux_arm64"
 else
 	@echo "Unsupported architecture $(shell uname -m)! Update this Makefile!"
 	exit 1
 endif
-	wget -qO shfmt "https://github.com/mvdan/sh/releases/download/${SHFMT_VERSION}/${SHFMT_BIN}"
 	chmod +x shfmt
 	sudo mv shfmt /usr/local/bin/shfmt
 	@echo "Setting up shellcheck (Linux)..."
