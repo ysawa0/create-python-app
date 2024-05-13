@@ -6,7 +6,7 @@ repos:
   # Misc
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-merge-conflict # Searches for merge conflict markers within files.
       - id: check-added-large-files # Blocks commits that add large files. Default limit is 500kB.
@@ -23,12 +23,10 @@ repos:
   # JSON, TOML
   #############################################################################
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-json # Validates JSON files to ensure they are properly formatted and syntactically correct.
         types: [json]
-      - id: check-toml # Checks TOML files for errors and format issues to ensure valid syntax.
-        types: [toml]
 
   #############################################################################
   # Shell
@@ -40,70 +38,15 @@ repos:
       - id: shellcheck # Lints shell scripts to identify syntax and usage errors, with a specified severity of 'warning'.
         args:
           - --severity=warning
-
   #############################################################################
-  # Python
-  #############################################################################
-  - repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.1
-    hooks:
-      - id: autoflake # Removes unused imports and unused variables from Python code.
-        args:
-          - --in-place
-          - --remove-all-unused-imports
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort # Sorts Python imports into sections and by alphabetical order.
-        args:
-          - --settings-path
-          - pyproject.toml
-        types:
-          - python
-
-  - repo: https://github.com/psf/black
-    rev: 23.10.1
-    hooks:
-      - id: black # Formats Python code to conform to the Black code style.
-        args:
-          - --config
-          - pyproject.toml
-        types:
-          - python
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
-    hooks:
-      - id: flake8 # Lints Python code for errors and code style issues based on PEP8.
-        args:
-          - --config=.ci/flake8.cfg
-        types:
-          - python
-
-  #  - repo: https://github.com/astral-sh/ruff-pre-commit
-  #    rev: v0.1.4
-  #    hooks:
-  #      - id: ruff
-
-  # - repo: https://github.com/python-poetry/poetry
-  #   rev: '1.7.0'
-  #   hooks:
-  #     - id: poetry-check # Makes sure the poetry configuration does not get committed in a broken state.
-  #     - id: poetry-lock # Ensures the poetry.lock file is up-to-date with the pyproject.toml changes.
-
-  #############################################################################
-  # Markdown, JavaScript, TypeScript, YAML style formatter
+  # CSS, Markdown, JavaScript, TypeScript, YAML style formatter
   #############################################################################
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier # An opinionated code formatter supporting multiple languages.
         name: prettier
         args: [--config, .ci/prettier.json, --write]
         types_or:
-          - javascript
-          - tsx
-          - ts
           - yaml
           - markdown
